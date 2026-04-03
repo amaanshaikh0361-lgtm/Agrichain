@@ -1,124 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriChain — Digital Transparency</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --green-600: #639922; --bg: #0f110c;
-            --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.1);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #e0e0e0; overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriChain — Digital Transparency Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900: #173404; --green-800: #27500A; --green-700: #3B6D11;
+    --green-600: #639922; --green-400: #97C459; --green-200: #C0DD97;
+    --green-100: #D8EDBC; --green-50: #EAF3DE;
+    --bg: #F7F6F1; --surface: #FFFFFF; --border: rgba(0,0,0,0.08);
+    --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bg); color: #1a1a18; }
 
-        /* 🟢 FIXED NAVIGATION */
-        nav {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; z-index: 1000;
-        }
-        .nav-logo { font-family: 'Syne'; font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; }
-        .nav-logo span { color: var(--green-600); }
+  /* NAVIGATION */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,246,241,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 1.5rem; height: 60px;
+    justify-content: space-between;
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--green-800); text-decoration: none; }
+  .nav-logo span { color: var(--green-600); }
 
-        /* 🟢 HAMBURGER ICON */
-        .menu-toggle {
-            cursor: pointer; display: flex; flex-direction: column; gap: 5px; z-index: 1100;
-        }
-        .menu-toggle span {
-            display: block; width: 28px; height: 3px; background: #fff; border-radius: 2px; transition: 0.3s;
-        }
+  /* HAMBURGER & POPUP */
+  .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+  .menu-toggle span { width: 25px; height: 3px; background: var(--green-800); border-radius: 2px; }
 
-        /* 🟢 POP-UP MENU (Hidden by default) */
-        .nav-popup {
-            position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
-            background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(20px);
-            border-left: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: 100px 30px; gap: 20px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1050;
-        }
-        .nav-popup.open { right: 0; }
-        .nav-popup button {
-            background: none; border: none; color: #aaa; font-size: 1.2rem;
-            font-weight: 700; text-align: left; cursor: pointer; transition: 0.3s;
-        }
-        .nav-popup button:hover { color: var(--green-600); transform: translateX(10px); }
+  .nav-popup {
+    position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+    background: var(--surface); box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; padding: 2rem; gap: 1.5rem;
+    transition: 0.4s ease; z-index: 200;
+  }
+  .nav-popup.open { right: 0; }
+  .popup-header { display: flex; justify-content: flex-end; }
+  .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--green-800); }
+  
+  .pop-link { 
+    text-decoration: none; color: var(--green-800); font-family: var(--font-display);
+    font-weight: 700; font-size: 1.1rem; 
+  }
 
-        /* 🟢 PAGE CONTENT */
-        .container { padding: 100px 5% 40px; }
-        .page { display: none; }
-        .page.active { display: block; }
+  /* HERO SECTION */
+  .hero { padding: 4rem 1.5rem; text-align: center; }
+  .hero h1 { 
+    font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 4rem); 
+    line-height: 1.1; color: #1a1a18; margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--green-600); }
+  .hero p { color: #5F5E5A; max-width: 500px; margin: 0 auto 2rem; font-size: 1.1rem; }
 
-        .hero { text-align: center; margin-bottom: 40px; }
-        .hero h1 { font-family: 'Syne'; font-size: 2.8rem; line-height: 1.1; margin-bottom: 20px; color: #fff; }
-        .hero h1 span { color: var(--green-600); }
-        
-        .section-box { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
-        .btn-main { background: var(--green-600); color: #fff; padding: 16px 32px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; }
-        
-        .workflow-step { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 16px; border-left: 4px solid var(--green-600); margin-bottom: 15px; }
-    </style>
+  .btn-primary { 
+    background: var(--green-700); color: white; border: none;
+    padding: 12px 24px; border-radius: 12px; font-weight: 600;
+    cursor: pointer; font-size: 1rem; text-decoration: none;
+  }
+
+  .section { padding: 3rem 1.5rem; max-width: 900px; margin: 0 auto; }
+  .info-card { 
+    background: white; border: 1px solid var(--border); 
+    border-radius: 18px; padding: 1.5rem; margin-bottom: 1rem;
+  }
+  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+  .step-num { 
+    background: var(--green-700); color: white; width: 35px; height: 35px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; flex-shrink: 0;
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+</style>
 </head>
 <body>
 
 <nav>
-    <a href="#" class="nav-logo" onclick="showPage('home')">Agri<span>Chain</span></a>
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
+  <a class="nav-logo" href="#" onclick="showPage('home')">Agri<span>Chain</span></a>
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
 <div class="nav-popup" id="navPopup">
-    <button onclick="navAction('home')">🏠 Home</button>
-    <button onclick="navAction('shop')">🛒 Buy Crops</button>
-    <button onclick="navAction('dashboard')">📊 Dashboard</button>
+  <div class="popup-header">
+    <button class="close-btn" onclick="toggleMenu()">✕</button>
+  </div>
+  <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
+  <a href="#" class="pop-link" onclick="navAction('shop')">🛒 Buy Crops</a>
+  <a href="#" class="pop-link" onclick="navAction('dashboard')">📊 Dashboard</a>
 </div>
 
-<div class="container">
-    <section id="home" class="page active">
-        <div class="hero">
-            <h1>Fresh Crops,<br><span>Fair Prices.</span></h1>
-            <p>Mandi price se 5% sasta aur 100% verified batches.</p>
-            <button class="btn-main" onclick="navAction('shop')">Explore Market →</button>
-        </div>
+<div id="app">
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <h1>Direct From<br><span>Farm To Your</span><br>Warehouse</h1>
+      <p>Mandi prices se 5% sasta, 100% verified batches.</p>
+      <button class="btn-primary" onclick="navAction('shop')">Explore Market →</button>
+    </div>
 
-        <div class="section-box">
-            <h2 style="font-family:'Syne'; margin-bottom:15px;">🤝 Why AgriChain?</h2>
-            <p style="color:#aaa; font-size:0.95rem;">AgriChain bundles transport, storage, and quality checks into one transparent price. Farmers get paid in 3 days.</p>
-        </div>
+    <div class="section">
+      <h2 style="font-family:var(--font-display); margin-bottom:1.5rem;">🤝 Why AgriChain is Your Best Deal</h2>
+      <div class="info-card">
+        <p>Going directly to a farmer sounds cheaper — but it's actually not. You pay for transport, storage, and market fees yourself. AgriChain bundles all this into one transparent price.</p>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+        <div class="info-card"><strong>💸 5% Below Mandi</strong><p style="font-size:0.9rem;">Always cheaper than official rates.</p></div>
+        <div class="info-card"><strong>🚚 Transport Included</strong><p style="font-size:0.9rem;">No separate delivery charges.</p></div>
+      </div>
+    </div>
 
-        <div class="section-box">
-            <h2 style="font-family:'Syne'; margin-bottom:20px;">⚙️ Workflow</h2>
-            <div class="workflow-step"><strong>1. Arrival:</strong> Farmer brings crop to warehouse.</div>
-            <div class="workflow-step"><strong>2. Records:</strong> Instant digital weighing and SMS.</div>
-            <div class="workflow-step"><strong>3. Pricing:</strong> 5% cheaper than live mandi price.</div>
-        </div>
-    </section>
+    <div class="section">
+      <h2 style="font-family:var(--font-display); margin-bottom:1.5rem;">⚙️ System Workflow</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p>Staff logs quantity and quality grade.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p>Instant SMS with batch ID to farmer.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Settlement</strong><p>Payment within 3 days directly to bank.</p></div></div>
+    </div>
+  </section>
 
-    <section id="shop" class="page">
-        <h2 style="font-family:'Syne'; margin-bottom:20px;">🛒 Live Market</h2>
-        <div id="shopGrid"></div>
-    </section>
+  <section id="page-shop" class="page">
+    <div class="section"><h2>🛒 Live Market</h2><div id="shopGrid"></div></div>
+  </section>
 </div>
 
 <script>
-    function toggleMenu() {
-        document.getElementById('navPopup').classList.toggle('open');
-    }
+  function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
+  
+  function navAction(page) {
+    toggleMenu();
+    showPage(page);
+  }
 
-    function navAction(id) {
-        toggleMenu(); // Menu close karo click ke baad
-        showPage(id);
-    }
-
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0, 0);
-    }
+  function showPage(p) {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-'+p).classList.add('active');
+    window.scrollTo(0,0);
+  }
 </script>
 </body>
 </html>
