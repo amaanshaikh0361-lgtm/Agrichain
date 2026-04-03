@@ -3,142 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriChain | Secure Agri Supply Chain</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>AgriChain Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #080808; color: #e0e0e0; display: flex; height: 100vh; overflow: hidden; }
-
-        /* Sidebar Styling */
-        .sidebar { width: 260px; background-color: #111; border-right: 1px solid #222; padding: 25px; display: flex; flex-direction: column; }
-        .logo { font-size: 22px; font-weight: bold; color: #fff; display: flex; items: center; gap: 10px; margin-bottom: 50px; }
-        .logo i { color: #2ecc71; font-size: 24px; } /* Green Leaf Logo */
-        .logo span { color: #2ecc71; }
-        .nav-links { list-style: none; flex-grow: 1; }
-        .nav-links li { margin-bottom: 20px; }
-        .nav-links a { text-decoration: none; color: #a0a0a0; font-size: 15px; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 8px; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { background-color: #1a1a1a; color: #fff; }
-        .nav-links a.active i { color: #2ecc71; }
-        .logout { color: #e74c3c; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 15px; }
-
-        /* Main Content Styling */
-        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        body { background-color: #0d0d0d; font-family: 'Inter', sans-serif; color: #ffffff; }
+        .nav-logo { font-weight: 800; font-size: 28px; letter-spacing: -1px; }
+        .nav-logo span { color: #4ade80; }
         
-        /* Top Header */
-        header { background-color: #111; border-b: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; sticky top-0; z-50; }
-        .search-bar { position: relative; width: 300px; }
-        .search-bar input { width: 100%; background-color: #1a1a1a; border: 1px solid #222; color: #fff; padding: 10px 15px 10px 40px; border-radius: 20px; font-size: 14px; }
-        .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
-        .user-profile { display: flex; align-items: center; gap: 15px; font-size: 14px; }
-        .user-profile i { color: #666; font-size: 18px; cursor: pointer; }
-        .user-name { background-color: #222; padding: 8px 15px; border-radius: 20px; color: #fff; font-weight: 500; }
-
-        /* Dashboard Grid */
-        .dashboard { padding: 30px; }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .page-header h2 { font-size: 24px; font-weight: 600; color: #fff; }
-        .add-btn { background-color: #2ecc71; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .add-btn:hover { background-color: #27ae60; }
-
-        /* Stats Cards */
-        .stats-grid { display: grid; grid-template-cols: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
-        .stat-card { background-color: #111; border: 1px solid #222; padding: 25px; border-radius: 12px; position: relative; overflow: hidden; transition: 0.3s; }
-        .stat-card:hover { border-color: #333; transform: translateY(-3px); }
-        .stat-card p { color: #a0a0a0; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; tracking-wider; }
-        .stat-card h3 { color: #fff; font-size: 32px; font-weight: 700; }
-        .stat-card i { position: absolute; right: 25px; top: 25px; font-size: 24px; color: #2ecc71; opacity: 0.2; }
-
-        /* Transactions Table */
-        .transactions-card { background-color: #111; border: 1px solid #222; padding: 25px; border-radius: 12px; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .card-header h4 { font-size: 18px; font-weight: 600; color: #fff; }
-        .view-all { color: #2ecc71; text-decoration: none; font-size: 14px; font-weight: 600; }
+        /* Exact Card Style from your screenshot */
+        .glass-card { 
+            background: #161616; 
+            border-radius: 20px; 
+            padding: 25px;
+            margin-bottom: 15px;
+            border: 1px solid #222;
+            text-align: center;
+        }
+        .stat-label { color: #9ca3af; font-size: 14px; margin-bottom: 5px; }
+        .stat-value { color: #4ade80; font-size: 32px; font-weight: 700; }
         
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        thead th { color: #666; font-size: 12px; text-transform: uppercase; padding-bottom: 15px; border-b: 1px solid #222; font-weight: 500; }
-        tbody td { padding: 18px 0; border-b: 1px solid #1a1a1a; font-size: 14px; color: #e0e0e0; }
-        tbody tr:last-child td { border-b: none; }
-        .batch-id { font-family: 'Courier New', Courier, monospace; color: #2ecc71; font-weight: 600; }
-        .status-badge { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(46, 204, 113, 0.2); }
+        /* Table Styling */
+        .table-container {
+            background: #111111;
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #222;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th { color: #4b5563; font-size: 12px; text-transform: uppercase; padding-bottom: 15px; text-align: left; }
+        td { padding: 15px 0; border-top: 1px solid #1f2937; font-size: 14px; }
+        .batch-id { color: #22c55e; font-weight: 600; }
+        .status-verified { color: #22c55e; background: rgba(34, 197, 94, 0.1); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; border: 1px solid rgba(34, 197, 94, 0.2); }
     </style>
 </head>
-<body>
+<body class="p-4">
 
-    <div class="sidebar">
-        <div class="logo">
-            <i class="fas fa-leaf"></i> Agri<span>Chain</span>
+    <header class="flex justify-between items-center mb-6">
+        <h1 class="nav-logo text-white">Agri<span>Chain</span></h1>
+        <div class="flex items-center gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-gray-400" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            <div class="bg-gray-800 px-4 py-1.5 rounded-full text-sm font-medium">Adil Liyakat</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
         </div>
-        <ul class="nav-links">
-            <li><a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-box"></i> Inventory</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Farmers</a></li>
-            <li><a href="#"><i class="fas fa-shuttle-van"></i> Logistics</a></li>
-            <li><a href="#"><i class="fas fa-file-contract"></i> Smart Contracts</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-        </ul>
-        <div class="logout">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </div>
+    </header>
+
+    <div class="flex items-center gap-2 mb-6 text-gray-400">
+        <span class="text-xs">monitoring</span>
+        <span class="bg-blue-900/30 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-800/30">Live</span>
     </div>
 
-    <div class="main-content">
-        <header>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search batches, farmers...">
-            </div>
-            <div class="user-profile">
-                <i class="fas fa-bell"></i>
-                <i class="fas fa-comment-alt"></i>
-                <div class="user-name">Adil Liyakat</div>
-                <i class="fas fa-user-circle"></i>
-            </div>
-        </header>
+    <div class="glass-card">
+        <p class="stat-label">TOTAL INVENTORY</p>
+        <h3 id="total-inventory-val" class="stat-value">Loading...</h3>
+    </div>
 
-        <div class="dashboard">
-            <div class="page-header">
-                <h2>Dashboard Overview</h2>
-                <button class="add-btn"><i class="fas fa-plus"></i> Add New Batch</button>
-            </div>
+    <div class="glass-card">
+        <p class="stat-label">ACTIVE FARMERS</p>
+        <h3 id="active-farmers-count" class="stat-value">0</h3>
+    </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <p>Total Inventory</p>
-                    <h3 id="total-inventory-val">Loading...</h3>
-                    <i class="fas fa-warehouse"></i>
-                </div>
-                <div class="stat-card">
-                    <p>Active Farmers</p>
-                    <h3 id="active-farmers-count">0</h3>
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-card">
-                    <p>Trade Value</p>
-                    <h3 id="trade-value-val">₹ 0</h3>
-                    <i class="fas fa-rupee-sign"></i>
-                </div>
-            </div>
+    <div class="glass-card">
+        <p class="stat-label">TRADE VALUE</p>
+        <h3 class="stat-value text-green-500">₹ 2,81,740</h3>
+    </div>
 
-            <div class="transactions-card">
-                <div class="card-header">
-                    <h4>Recent Transactions</h4>
-                    <a href="#" class="view-all">View All</a>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Batch ID</th>
-                            <th>Farmer</th>
-                            <th>Crop</th>
-                            <th>Qty (KG)</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transaction-table-body">
-                        </tbody>
-                </table>
-            </div>
+    <div class="table-container">
+        <div class="flex justify-between items-center mb-6">
+            <h4 class="font-bold text-gray-200">RECENT TRANSACTIONS</h4>
+            <span class="text-green-500 text-xs font-bold">View All</span>
         </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>BATCH ID</th>
+                    <th>FARMER</th>
+                    <th>CROP</th>
+                    <th>QTY</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-table-body">
+                </tbody>
+        </table>
     </div>
 
     <script src="app.js"></script>
