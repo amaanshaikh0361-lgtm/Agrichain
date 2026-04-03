@@ -1,69 +1,84 @@
 :root {
     --primary: #2ecc71;
-    --accent: #27ae60;
-    --dark: #1a1a1a;
-    --glass: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.15);
+    --accent: #00ff88;
+    --bg: #0a0b10;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
 }
 
 body {
-    margin: 0;
-    background: #0f0f0f; /* Dark Theme for high contrast */
+    background-color: var(--bg);
     color: white;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
     overflow-x: hidden;
 }
 
+/* Glassmorphism Nav */
 .glass-nav {
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    padding: 15px 30px;
+    max-width: 1200px;
     background: var(--glass);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
     border: 1px solid var(--border);
-    border-radius: 50px;
+    border-radius: 100px;
+    padding: 12px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
 }
 
-.page {
-    display: none;
-    padding-top: 120px;
-    min-height: 100vh;
-    opacity: 0;
+/* Glowing Button UI */
+.btn-glowing {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #000;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
 }
 
-.page.active {
-    display: block;
+.btn-glowing:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.6);
 }
 
-.hero-content h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 5rem;
-    line-height: 1;
-    background: linear-gradient(to right, #fff, var(--primary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* Shop Cards Styling */
-.shop-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 20px;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.shop-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: var(--primary);
+.btn-main {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    background: white;
+    color: black;
+    border-radius: 12px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Animations */
-.reveal-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+.floating-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 24px;
+    animation: float 4s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.hero-text h1 span {
+    color: var(--primary);
+    text-shadow: 0 0 30px rgba(46, 204, 113, 0.5);
+}
