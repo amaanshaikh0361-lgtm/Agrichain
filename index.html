@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
-            --green-800: #27500A; --green-700: #3B6D11; --green-600: #639922;
+            --green-600: #639922; --green-700: #3B6D11;
             --bg: #0f110c; --surface: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1);
         }
 
@@ -40,32 +40,30 @@
         .hero-text h1 em { font-style: normal; color: var(--green-600); }
         .hero-text p { color: #888; margin-bottom: 25px; max-width: 500px; }
 
-        /* 🟢 WHY AGRICHAIN SECTION */
-        .info-banner { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 40px; margin-top: 30px; }
-        .info-header { text-align: center; margin-bottom: 40px; }
-        .info-header h2 { font-family: 'Syne'; font-size: 2rem; color: #fff; margin-bottom: 15px; }
-        .info-header p { max-width: 800px; margin: 0 auto; color: #aaa; }
+        /* 🟢 INFO SECTIONS */
+        .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 40px; margin-top: 30px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-family: 'Syne'; font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+        .section-header p { color: #aaa; max-width: 700px; margin: 0 auto; }
 
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        /* 🟢 WORKFLOW STEPS */
+        .workflow-container { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+        .step-card { display: flex; gap: 20px; align-items: flex-start; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 20px; border: 1px solid var(--border); }
+        .step-num { width: 45px; height: 45px; background: var(--green-600); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+        .step-content h4 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
+        .step-content p { font-size: 0.95rem; color: #888; }
+
+        /* 🟢 FEATURES GRID */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
         .feat-card { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
-        .feat-card:hover { border-color: var(--green-600); background: rgba(99, 153, 34, 0.05); }
+        .feat-card:hover { border-color: var(--green-600); transform: translateY(-5px); }
         .feat-icon { font-size: 2rem; margin-bottom: 15px; }
-        .feat-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 10px; }
-        .feat-card p { font-size: 0.9rem; color: #888; }
 
-        /* 🟢 BUTTONS */
-        .btn { padding: 12px 28px; border-radius: 12px; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; }
-        .btn-primary { background: var(--green-700); color: white; }
+        .btn-primary { background: var(--green-700); color: white; padding: 12px 28px; border-radius: 12px; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; }
         .btn-primary:hover { background: var(--green-600); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99, 153, 34, 0.3); }
 
-        /* 🟢 SHOP GRID */
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px 0; }
         .shop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; text-align: center; }
-        .shop-card h3 { font-family: 'Syne'; margin-bottom: 10px; color: #fff; }
         .price-tag { font-size: 1.8rem; font-weight: 800; color: var(--green-600); margin: 10px 0; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .floating { animation: float 4s infinite ease-in-out; }
     </style>
 </head>
 <body>
@@ -74,10 +72,9 @@
     <a href="#" class="nav-logo" onclick="showPage('home')">Agri<span>Chain</span></a>
     <div class="nav-links">
         <button class="nav-btn active" onclick="showPage('home')">Home</button>
-        <button class="nav-btn" onclick="showPage('shop')">Buy Crops</button>
+        <button class="nav-btn" onclick="showPage('shop')">Market</button>
         <button class="nav-btn" onclick="showPage('dashboard')">Dashboard</button>
     </div>
-    <button class="btn btn-primary" style="padding: 8px 20px; font-size: 12px;">Login</button>
 </nav>
 
 <main id="app">
@@ -85,28 +82,27 @@
         <div class="hero">
             <div class="hero-text">
                 <h1>Fresh Crops,<br><em>Fair Prices</em>.</h1>
-                <p>Mandi price se 5% sasta aur 100% verified batches. Hume trust karte hain 1,200+ kisaan jaise Ramesh Patil.</p>
-                <button class="btn btn-primary" onclick="showPage('shop')">🛒 Buy Crops Now →</button>
+                <p>AgriChain connects farmers and buyers through a trusted digital platform. 5% cheaper than Mandi, 100% verified.</p>
+                <button class="btn-primary" onclick="showPage('shop')">🛒 Explore Market →</button>
             </div>
             <div class="hero-visual">
-                <div class="shop-card floating" style="min-width: 200px;">
-                    <p style="color: var(--green-600); font-weight: 700;">Live Wheat Rate</p>
+                <div class="shop-card" style="animation: float 4s infinite ease-in-out;">
+                    <p style="color: var(--green-600); font-weight: 700;">Verified Batch</p>
                     <div class="price-tag">₹2,204/Qt</div>
                 </div>
             </div>
         </div>
 
-        <div class="info-banner">
-            <div class="info-header">
+        <div class="section-box">
+            <div class="section-header">
                 <h2>🤝 Why AgriChain is Your Best Deal</h2>
-                <p>Going directly to a farmer or mandi sounds cheaper — but it's actually not. You have to pay for transport, storage, inspection, and market fees yourself. AgriChain bundles all of this into one transparent price that beats the mandi every time.</p>
-                <p style="margin-top:15px; color: var(--green-600); font-weight: 600;">For farmers: We guarantee payment within 3 days, handle storage, and connect you to verified bulk buyers.</p>
+                <p>Going directly to a farmer or mandi sounds cheaper — but it's actually not. AgriChain bundles transport, storage, and quality checks into one transparent price.</p>
             </div>
             <div class="features-grid">
                 <div class="feat-card">
                     <div class="feat-icon">💸</div>
                     <h3>5% Below Mandi Price</h3>
-                    <p>Our crop price is always cheaper than the official mandi rate — after all costs.</p>
+                    <p>Our crop price is always cheaper than the official mandi rate.</p>
                 </div>
                 <div class="feat-card">
                     <div class="feat-icon">🚚</div>
@@ -125,17 +121,61 @@
                 </div>
             </div>
         </div>
+
+        <div class="section-box" style="margin-top: 50px;">
+            <div class="section-header">
+                <h2>System Workflow</h2>
+                <p>How it works — simple as 1, 2, 3. From the farm to your warehouse — fully digital.</p>
+            </div>
+            <div class="workflow-container">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>🌾 Farmer brings crop to our warehouse</h4>
+                        <p>The farmer arrives with harvested crop. Our staff logs everything: crop name, quantity, and quality grade.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>⚖️ Crop is weighed, graded, and stored</h4>
+                        <p>Digital records are created instantly. Farmer gets an SMS confirmation with the batch ID.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>💹 Platform checks live mandi price</h4>
+                        <p>We fetch today's mandi price and calculate our crop price — always 5% lower.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h4>🛒 Retailers browse and buy online</h4>
+                        <p>Retailers purchase crops with full price breakdown: mandi, GST, transport, and handling.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">5</div>
+                    <div class="step-content">
+                        <h4>🚚 Delivery & payment settled</h4>
+                        <p>Crop is dispatched. Farmer receives payment within 3 business days to their bank account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="page-shop" class="page">
-        <h2 style="font-family: 'Syne'; margin-bottom: 20px;">🛒 Market Inventory</h2>
+        <div class="section-header"><h2>🛒 Live Market</h2></div>
         <div class="shop-grid" id="shopGrid"></div>
     </section>
 
     <section id="page-dashboard" class="page">
-        <h2 style="font-family: 'Syne'; margin-bottom: 20px;">📊 Warehouse Dashboard</h2>
+        <div class="section-header"><h2>📊 Warehouse Dashboard</h2></div>
         <div class="features-grid">
-            <div class="feat-card"><h3>4,500 Qt</h3><p>Total Stock</p></div>
+            <div class="feat-card"><h3>4,500 Qt</h3><p>Total Inventory</p></div>
             <div class="feat-card"><h3>1,240</h3><p>Farmers Registered</p></div>
         </div>
     </section>
@@ -158,18 +198,11 @@
         const grid = document.getElementById('shopGrid');
         grid.innerHTML = Object.entries(DB_PRICES).map(([crop, price]) => {
             const ourPrice = Math.round(price * 0.95);
-            return `
-                <div class="shop-card">
-                    <h3>${crop}</h3>
-                    <p style="text-decoration: line-through; font-size: 12px; color: #666;">Mandi: ₹${price}</p>
-                    <div class="price-tag">₹${ourPrice}/Qt</div>
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 15px;">Add to Cart</button>
-                </div>
-            `;
+            return `<div class="shop-card"><h3>${crop}</h3><div class="price-tag">₹${ourPrice}/Qt</div><button class="btn-primary" style="width: 100%;">Add to Cart</button></div>`;
         }).join('');
     }
 
-    window.onload = () => { gsap.from(".hero-text", { x: -50, opacity: 0, duration: 1 }); };
+    window.onload = () => { gsap.from(".hero-text", { y: 30, opacity: 0, duration: 1 }); };
 </script>
 </body>
 </html>
