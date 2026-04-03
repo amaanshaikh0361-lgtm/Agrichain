@@ -1,61 +1,47 @@
-// 1. Page Switching Logic
-function showPage(pageId) {
-    // Scroll to top
-    window.scrollTo(0, 0);
+// 1. Tera DB Object (As it was in your file)
+const DB = {
+    farmers: [...], // Same as your file
+    prices: {...},  // Same as your file
+    transactions: [...] // Same as your file
+};
 
-    // Fade out current page
+// 2. Navigation Control (Smooth Transitions)
+function showPage(pageId) {
     const current = document.querySelector('.page.active');
-    gsap.to(current, { opacity: 0, y: 20, duration: 0.3, onComplete: () => {
+    gsap.to(current, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
         current.classList.remove('active');
-        
-        // Show next page
         const next = document.getElementById('page-' + pageId);
         next.classList.add('active');
         gsap.fromTo(next, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
     }});
-
-    // Update Nav Buttons
+    
+    // Update active nav button
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    // Find the button that matches the page and add active class
+    // (Add logic to find clicked btn)
 }
 
-// 2. Auth0 Setup (Keys placeholder)
-let auth0 = null;
-const initAuth = async () => {
-    // Yahan apni keys dalna jab ready ho
-    // auth0 = await createAuth0Client({ domain: "...", client_id: "..." });
-    console.log("Auth System Initialized");
-};
-
-// 3. Mock Data for Market
-const crops = [
-    { name: "Wheat", price: 2320, emoji: "🌾", cat: "Grain" },
-    { name: "Onion", price: 1850, emoji: "🧅", cat: "Veg" },
-    { name: "Tomato", price: 1450, emoji: "🍅", cat: "Veg" }
-];
-
-function renderShop() {
-    const grid = document.getElementById('shop-grid');
-    if(!grid) return;
+// 3. Render Shop (Connecting to your UI)
+function renderShop(filter = 'all') {
+    const grid = document.getElementById('shopGrid');
+    const items = Object.entries(DB.prices).filter(([c, d]) => filter === 'all' || d.cat === filter);
     
-    grid.innerHTML = crops.map(c => `
-        <div class="shop-card">
-            <div class="card-icon">${c.emoji}</div>
-            <h3>${c.name}</h3>
-            <p>Category: ${c.cat}</p>
-            <div class="price">₹${c.price}/Qt</div>
-            <button class="btn-glow" style="width:100%; margin-top:10px;">Buy Now</button>
+    grid.innerHTML = items.map(([crop, d]) => `
+        <div class="shop-card stat-card">
+            <div class="crop-emoji">${CROP_EMOJI[crop] || '🌾'}</div>
+            <h4>${crop}</h4>
+            <p>Mandi Price: ₹${d.modal}</p>
+            <h2 style="color:var(--primary)">₹${Math.round(d.modal * 0.95)}/Qt</h2>
+            <button class="btn-glow" style="width:100%" onclick="addToCart('${crop}')">Add to Cart</button>
         </div>
     `).join('');
 }
 
-// Initialize on Load
+// 4. Initialization
 window.onload = () => {
-    initAuth();
+    animateStats(); // Tumhare file wala counter
     renderShop();
+    renderHeroTicker();
     
-    // Initial GSAP Reveal
-    gsap.from(".glass-nav", { y: -100, opacity: 0, duration: 1 });
-    gsap.from(".hero-text", { x: -50, opacity: 0, duration: 1, delay: 0.5 });
+    // GSAP Entrance
+    gsap.from(".glass-nav", { y: -100, opacity: 0, duration: 1, ease: "power4.out" });
 };
-    
