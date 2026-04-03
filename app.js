@@ -1,9 +1,9 @@
 const API_URL = "https://agrichain-backend-y068.onrender.com/api/inventory";
 
-async function loadData() {
+async function fetchMyData() {
     try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
         if (data.length > 0) {
             // Stats Update
@@ -13,23 +13,23 @@ async function loadData() {
             const farmers = [...new Set(data.map(item => item.farmerName))].length;
             document.getElementById('active-farmers-count').innerText = farmers;
 
-            // Table Update
-            const tbody = document.getElementById('transaction-table-body');
-            tbody.innerHTML = "";
+            // Table Update (Exact layout as before)
+            const table = document.getElementById('transaction-table-body');
+            table.innerHTML = "";
             data.forEach(item => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="batch-id">${item.batchId}</td>
-                        <td class="font-bold">${item.farmerName}</td>
-                        <td class="text-gray-400">${item.crop}</td>
-                        <td class="font-bold">${item.quantity}</td>
-                        <td><span class="status-verified">VERIFIED</span></td>
+                table.innerHTML += `
+                    <tr class="border-b border-gray-900/50">
+                        <td class="py-5 text-green-500 font-mono font-bold">${item.batchId}</td>
+                        <td class="py-5 font-bold">${item.farmerName}</td>
+                        <td class="py-5 text-gray-400">${item.crop}</td>
+                        <td class="py-5 font-bold">${item.quantity}</td>
+                        <td class="py-5"><span class="bg-green-900/20 text-green-500 px-3 py-1 rounded-full text-[10px] border border-green-800/30 font-bold">VERIFIED</span></td>
                     </tr>
                 `;
             });
         }
     } catch (err) {
-        console.error("Backend offline", err);
+        console.log("Server error", err);
     }
 }
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', fetchMyData);
