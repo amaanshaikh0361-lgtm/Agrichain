@@ -3,60 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriChain Pro — Smart Supply Chain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>AgriChain Pro — Digital Mandi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="glass-nav">
         <div class="logo">Agri<span>Chain</span></div>
         <div class="nav-links">
-            <a href="#" class="active" onclick="showPage('home')">Home</a>
-            <a href="#" id="shop-link" onclick="showPage('shop')">Market</a>
-            <a href="#" id="dash-link" style="display:none;" onclick="showPage('dashboard')">Dashboard</a>
+            <a href="#" class="nav-item active" onclick="showPage('home')">Home</a>
+            <a href="#" class="nav-item" onclick="showPage('market')">Market</a>
+            <a href="#" class="nav-item admin-only" onclick="showPage('dashboard')">Dashboard</a>
         </div>
-        <div class="auth-box">
-            <button id="login-btn" class="btn-glow" onclick="login()">Get Started</button>
-            <div id="user-profile" style="display:none;" class="profile-chip">
-                <img id="user-img" src="" alt="user">
-                <span id="user-name"></span>
-                <button onclick="logout()" class="logout-icon">Logout</button>
+        <div id="auth-root">
+            <button id="login-btn" class="btn-glowing" onclick="login()">Partner Login</button>
+            <div id="user-profile" class="profile-chip" style="display:none;">
+                <img id="user-avatar" src="" alt="User">
+                <button onclick="logout()" class="btn-logout">Logout</button>
             </div>
         </div>
     </nav>
 
-    <main id="app-content">
-        <section id="home" class="page active">
-            <div class="hero-content">
-                <h1 class="reveal-text">Direct From Farm <br> To <span>Your Warehouse</span></h1>
-                <p class="fade-in">Mandi prices se 5% sasta, 100% verified batches.</p>
-                <button class="btn-primary ripple" onclick="showPage('shop')">Explore Market</button>
-            </div>
-            <div class="hero-visual">
-                <div class="blob"></div>
+    <main id="app">
+        <section id="page-home" class="page active">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <span class="badge-live">● Live Mandi Updates</span>
+                    <h1 class="animate-text">Direct From Farm <br> To <span>Your Warehouse</span></h1>
+                    <p>Mandi prices se 5% sasta, 100% verified batches with digital tracking.</p>
+                    <div class="hero-btns">
+                        <button class="btn-main" onclick="showPage('market')">Explore Market</button>
+                        <button class="btn-secondary">How it works?</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card">
+                        <div class="card-header">Current Batch #8396</div>
+                        <div class="card-price">₹2,340<span>/quintal</span></div>
+                        <div class="card-graph"></div>
+                    </div>
+                    <div class="blob"></div>
+                </div>
             </div>
         </section>
 
-        <section id="shop" class="page">
-            <div class="section-header">
+        <section id="page-market" class="page">
+            <div class="section-head">
                 <h2>Live Crop Market</h2>
-                <div class="filters" id="crop-filters"></div>
+                <div class="filter-pills" id="category-filters">
+                    <button class="pill active">All</button>
+                    <button class="pill">Grains</button>
+                    <button class="pill">Vegetables</button>
+                </div>
             </div>
-            <div class="shop-grid" id="contentful-shop">
-                <div class="loader">Loading Fresh Crops...</div>
-            </div>
-        </section>
-
-        <section id="dashboard" class="page">
-            <h2>Warehouse Insights</h2>
-            <div class="stats-container">
+            <div class="grid-container" id="crop-grid">
                 </div>
         </section>
     </main>
 
     <script src="app.js"></script>
 </body>
-</html>
+    </html>
+    
