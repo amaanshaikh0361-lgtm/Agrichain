@@ -3,80 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriChain | Secure Supply Chain</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>AgriChain | Secure Agri Supply Chain</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0d0d0d; color: #e5e7eb; font-family: 'Inter', sans-serif; }
-        .card-bg { background: #161616; border: 1px solid #262626; border-radius: 12px; }
-        .text-green-custom { color: #22c55e; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #080808; color: #e0e0e0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* Sidebar Styling */
+        .sidebar { width: 260px; background-color: #111; border-right: 1px solid #222; padding: 25px; display: flex; flex-direction: column; }
+        .logo { font-size: 22px; font-weight: bold; color: #fff; display: flex; items: center; gap: 10px; margin-bottom: 50px; }
+        .logo i { color: #2ecc71; font-size: 24px; } /* Green Leaf Logo */
+        .logo span { color: #2ecc71; }
+        .nav-links { list-style: none; flex-grow: 1; }
+        .nav-links li { margin-bottom: 20px; }
+        .nav-links a { text-decoration: none; color: #a0a0a0; font-size: 15px; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 8px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { background-color: #1a1a1a; color: #fff; }
+        .nav-links a.active i { color: #2ecc71; }
+        .logout { color: #e74c3c; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 15px; }
+
+        /* Main Content Styling */
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        /* Top Header */
+        header { background-color: #111; border-b: 1px solid #222; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; sticky top-0; z-50; }
+        .search-bar { position: relative; width: 300px; }
+        .search-bar input { width: 100%; background-color: #1a1a1a; border: 1px solid #222; color: #fff; padding: 10px 15px 10px 40px; border-radius: 20px; font-size: 14px; }
+        .search-bar i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+        .user-profile { display: flex; align-items: center; gap: 15px; font-size: 14px; }
+        .user-profile i { color: #666; font-size: 18px; cursor: pointer; }
+        .user-name { background-color: #222; padding: 8px 15px; border-radius: 20px; color: #fff; font-weight: 500; }
+
+        /* Dashboard Grid */
+        .dashboard { padding: 30px; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .page-header h2 { font-size: 24px; font-weight: 600; color: #fff; }
+        .add-btn { background-color: #2ecc71; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .add-btn:hover { background-color: #27ae60; }
+
+        /* Stats Cards */
+        .stats-grid { display: grid; grid-template-cols: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .stat-card { background-color: #111; border: 1px solid #222; padding: 25px; border-radius: 12px; position: relative; overflow: hidden; transition: 0.3s; }
+        .stat-card:hover { border-color: #333; transform: translateY(-3px); }
+        .stat-card p { color: #a0a0a0; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; tracking-wider; }
+        .stat-card h3 { color: #fff; font-size: 32px; font-weight: 700; }
+        .stat-card i { position: absolute; right: 25px; top: 25px; font-size: 24px; color: #2ecc71; opacity: 0.2; }
+
+        /* Transactions Table */
+        .transactions-card { background-color: #111; border: 1px solid #222; padding: 25px; border-radius: 12px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-header h4 { font-size: 18px; font-weight: 600; color: #fff; }
+        .view-all { color: #2ecc71; text-decoration: none; font-size: 14px; font-weight: 600; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        thead th { color: #666; font-size: 12px; text-transform: uppercase; padding-bottom: 15px; border-b: 1px solid #222; font-weight: 500; }
+        tbody td { padding: 18px 0; border-b: 1px solid #1a1a1a; font-size: 14px; color: #e0e0e0; }
+        tbody tr:last-child td { border-b: none; }
+        .batch-id { font-family: 'Courier New', Courier, monospace; color: #2ecc71; font-weight: 600; }
+        .status-badge { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(46, 204, 113, 0.2); }
     </style>
 </head>
 <body>
 
-    <nav class="border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 bg-black z-50">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                <i class="fas fa-leaf text-white text-sm"></i>
-            </div>
-            <h1 class="text-xl font-bold tracking-tight">Agri<span class="text-green-500">Chain</span></h1>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i> Agri<span>Chain</span>
         </div>
-        <div class="flex items-center gap-4 text-gray-400 text-sm">
-            <span><i class="fas fa-search"></i></span>
-            <span class="bg-gray-800 px-3 py-1 rounded-full text-xs text-white">Adil Liyakat</span>
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-box"></i> Inventory</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Farmers</a></li>
+            <li><a href="#"><i class="fas fa-shuttle-van"></i> Logistics</a></li>
+            <li><a href="#"><i class="fas fa-file-contract"></i> Smart Contracts</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+        <div class="logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
         </div>
-    </nav>
+    </div>
 
-    <main class="p-6 max-w-7xl mx-auto">
-        <div class="flex justify-between items-end mb-8">
-            <div>
-                <h2 class="text-2xl font-bold">Dashboard</h2>
-                <p class="text-gray-500 text-sm">Real-time supply chain monitoring</p>
+    <div class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search batches, farmers...">
             </div>
-            <div class="text-xs text-gray-500 bg-gray-900 px-3 py-1 rounded border border-gray-800">
-                Network: <span class="text-green-500">Render API Live</span>
+            <div class="user-profile">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-comment-alt"></i>
+                <div class="user-name">Adil Liyakat</div>
+                <i class="fas fa-user-circle"></i>
             </div>
-        </div>
+        </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="card-bg p-6">
-                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Total Inventory</p>
-                <h3 id="total-inventory-val" class="text-3xl font-bold text-green-custom tracking-tighter">Loading...</h3>
-            </div>
-            
-            <div class="card-bg p-6">
-                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Active Farmers</p>
-                <h3 id="active-farmers-count" class="text-3xl font-bold text-green-custom tracking-tighter">0</h3>
+        <div class="dashboard">
+            <div class="page-header">
+                <h2>Dashboard Overview</h2>
+                <button class="add-btn"><i class="fas fa-plus"></i> Add New Batch</button>
             </div>
 
-            <div class="card-bg p-6">
-                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Trade Value</p>
-                <h3 class="text-3xl font-bold text-green-custom tracking-tighter">₹ 2,81,740</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Total Inventory</p>
+                    <h3 id="total-inventory-val">Loading...</h3>
+                    <i class="fas fa-warehouse"></i>
+                </div>
+                <div class="stat-card">
+                    <p>Active Farmers</p>
+                    <h3 id="active-farmers-count">0</h3>
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-card">
+                    <p>Trade Value</p>
+                    <h3 id="trade-value-val">₹ 0</h3>
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
             </div>
-        </div>
 
-        <div class="card-bg overflow-hidden">
-            <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/30">
-                <h4 class="font-bold text-sm uppercase tracking-widest text-gray-400">Recent Transactions</h4>
-                <button class="text-xs text-green-500 font-bold hover:underline">View All</button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="text-gray-500 text-xs border-b border-gray-800 bg-black/20">
+            <div class="transactions-card">
+                <div class="card-header">
+                    <h4>Recent Transactions</h4>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <table>
+                    <thead>
                         <tr>
-                            <th class="py-4 px-6 font-medium">BATCH ID</th>
-                            <th class="font-medium">FARMER</th>
-                            <th class="font-medium">CROP</th>
-                            <th class="font-medium">QTY</th>
-                            <th class="font-medium">STATUS</th>
+                            <th>Batch ID</th>
+                            <th>Farmer</th>
+                            <th>Crop</th>
+                            <th>Qty (KG)</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody id="transaction-table-body" class="text-sm divide-y divide-gray-800">
+                    <tbody id="transaction-table-body">
                         </tbody>
                 </table>
             </div>
         </div>
-    </main>
+    </div>
 
     <script src="app.js"></script>
 </body>
