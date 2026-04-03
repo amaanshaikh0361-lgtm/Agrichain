@@ -12,59 +12,75 @@
 <body>
 
     <nav class="glass-nav">
-        <div class="logo">Agri<span>Chain</span></div>
+        <div class="logo" onclick="showPage('home')">Agri<span>Chain</span></div>
         <div class="nav-links">
-            <a href="#" class="nav-item active" onclick="showPage('home')">Home</a>
-            <a href="#" class="nav-item" onclick="showPage('market')">Market</a>
-            <a href="#" class="nav-item admin-only" onclick="showPage('dashboard')">Dashboard</a>
+            <button class="nav-btn active" onclick="showPage('home')">Home</button>
+            <button class="nav-btn" onclick="showPage('shop')">Market</button>
+            <button class="nav-btn" id="dash-link" onclick="showPage('dashboard')" style="display:none;">Dashboard</button>
         </div>
-        <div id="auth-root">
-            <button id="login-btn" class="btn-glowing" onclick="login()">Partner Login</button>
-            <div id="user-profile" class="profile-chip" style="display:none;">
+        <div class="auth-section">
+            <button id="login-btn" class="btn-glow" onclick="login()">Login</button>
+            <div id="user-profile" class="user-chip" style="display:none;">
                 <img id="user-avatar" src="" alt="User">
                 <button onclick="logout()" class="btn-logout">Logout</button>
             </div>
         </div>
     </nav>
 
-    <main id="app">
+    <div id="main-content">
         <section id="page-home" class="page active">
-            <div class="hero-container">
+            <div class="hero">
                 <div class="hero-text">
-                    <span class="badge-live">● Live Mandi Updates</span>
-                    <h1 class="animate-text">Direct From Farm <br> To <span>Your Warehouse</span></h1>
-                    <p>Mandi prices se 5% sasta, 100% verified batches with digital tracking.</p>
-                    <div class="hero-btns">
-                        <button class="btn-main" onclick="showPage('market')">Explore Market</button>
-                        <button class="btn-secondary">How it works?</button>
+                    <span class="live-tag">● Live Transparency Platform</span>
+                    <h1>Fresh Crops,<br><span>Fair Prices.</span></h1>
+                    <p>Direct from farmers to your warehouse. Mandi price se 5% sasta aur 100% verified batches.</p>
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="showPage('shop')">🛒 Start Buying</button>
+                        <button class="btn-outline" onclick="scrollToFeatures()">Learn More</button>
                     </div>
                 </div>
                 <div class="hero-visual">
                     <div class="floating-card">
-                        <div class="card-header">Current Batch #8396</div>
-                        <div class="card-price">₹2,340<span>/quintal</span></div>
-                        <div class="card-graph"></div>
+                        <div class="card-header">Live Batch #8396</div>
+                        <div class="card-price">₹2,340/Qt</div>
+                        <div class="card-status">Quality: Grade A</div>
                     </div>
                     <div class="blob"></div>
                 </div>
             </div>
+            
+            <div class="stats-bar">
+                <div class="stat"><h3>1,200+</h3><p>Farmers</p></div>
+                <div class="stat"><h3>45</h3><p>Warehouses</p></div>
+                <div class="stat"><h3>₹4.2Cr</h3><p>Trade Value</p></div>
+            </div>
         </section>
 
-        <section id="page-market" class="page">
-            <div class="section-head">
+        <section id="page-shop" class="page">
+            <div class="section-header">
                 <h2>Live Crop Market</h2>
-                <div class="filter-pills" id="category-filters">
-                    <button class="pill active">All</button>
-                    <button class="pill">Grains</button>
-                    <button class="pill">Vegetables</button>
-                </div>
+                <p>Browse fresh inventory from verified warehouses</p>
             </div>
-            <div class="grid-container" id="crop-grid">
+            <div class="filter-row">
+                <button class="filter-pill active">All</button>
+                <button class="filter-pill">Grains</button>
+                <button class="filter-pill">Vegetables</button>
+            </div>
+            <div class="grid-container" id="shop-grid">
                 </div>
         </section>
-    </main>
+
+        <section id="page-dashboard" class="page">
+            <div class="section-header">
+                <h2>Warehouse Dashboard</h2>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dash-card"><h3>Total Inventory</h3><p>4,500 Quintals</p></div>
+                <div class="dash-card"><h3>Active Alerts</h3><p class="warning">3 Spoilage Risks</p></div>
+            </div>
+        </section>
+    </div>
 
     <script src="app.js"></script>
 </body>
-    </html>
-    
+</html>
