@@ -1,177 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriChain Pro — Digital Transparency</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e0e0e0; overflow-x: hidden; }
-
-  /* 🟢 NAVIGATION */
-  nav {
-    position: fixed; top: 0; width: 100%; height: 70px;
-    background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border); display: flex;
-    align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000;
-  }
-  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; }
-  .nav-logo span { color: var(--primary); }
-  .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
-  .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
-
-  /* 🟢 POP-UP MENU */
-  .nav-popup {
-    position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-    background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px);
-    border-left: 1px solid var(--border); display: flex;
-    flex-direction: column; padding: 25px; gap: 1.5rem;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2000;
-  }
-  .nav-popup.open { right: 0; }
-  .popup-header { display: flex; justify-content: flex-end; }
-  .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; }
-  .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; transition: 0.3s; }
-  .pop-link:hover { color: var(--primary); transform: translateX(10px); }
-
-  /* 🟢 LAYOUT */
-  #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
-  .page { display: none; opacity: 0; }
-  .page.active { display: block; opacity: 1; }
-  .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
-  
-  /* 🟢 HERO & FEATURES */
-  .hero { text-align: center; padding: 40px 0; }
-  .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
-  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-  .card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 18px; border: 1px solid var(--border); }
-  
-  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
-  .step-num { background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
-
-  /* 🟢 TABLES & SHOP */
-  .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99,153,34,0.2); }
-  
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-  th { text-align: left; color: #666; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
-  td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 0.85rem; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriChain | Secure Supply Chain</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0d0d0d; color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .card-bg { background: #161616; border: 1px solid #262626; border-radius: 12px; }
+        .text-green-custom { color: #22c55e; }
+    </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="#" onclick="showPage('home')">Agri<span>Chain</span></a>
-  <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-</nav>
-
-<div class="nav-popup" id="navPopup">
-  <div class="popup-header"><button class="close-btn" onclick="toggleMenu()">✕</button></div>
-  <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
-  <a href="#" class="pop-link" onclick="navAction('shop')">🛒 Buy Crops</a>
-  <a href="#" class="pop-link" onclick="navAction('dashboard')">📊 Dashboard</a>
-</div>
-
-<div id="app">
-  <section id="page-home" class="page active">
-    <div class="hero">
-      <h1>Direct From<br><span style="color:var(--primary)">Farm To Warehouse</span></h1>
-      <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches. Trusted by 1,200+ farmers.</p>
-      <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('shop')">Explore Market →</button>
-    </div>
-
-    <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">🤝 Why AgriChain is Your Best Deal</h2>
-      <p style="color:#888; font-size: 0.9rem;">AgriChain bundles transport, storage, and quality checks into one transparent price.</p>
-      <div class="info-grid">
-        <div class="card"><strong>💸 5% Below Mandi</strong><p style="font-size: 0.8rem; color:#666;">Always cheaper than market rates.</p></div>
-        <div class="card"><strong>🚚 Transport Included</strong><p style="font-size: 0.8rem; color:#666;">No separate delivery charges.</p></div>
-        <div class="card"><strong>✅ Graded & Quality</strong><p style="font-size: 0.8rem; color:#666;">Every batch is weighed and graded.</p></div>
-        <div class="card"><strong>🔒 Safe Payments</strong><p style="font-size: 0.8rem; color:#666;">Direct to bank with GST invoice.</p></div>
-      </div>
-    </div>
-
-    <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ System Workflow</h2>
-      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p style="font-size:0.8rem; color:#888;">Staff logs quantity and grade.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p style="font-size:0.8rem; color:#888;">Instant SMS with batch ID to farmer.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><strong>Market Sync</strong><p style="font-size:0.8rem; color:#888;">Price set 5% lower than live mandi.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><strong>Settlement</strong><p style="font-size:0.8rem; color:#888;">Payment in 3 days directly to bank.</p></div></div>
-    </div>
-  </section>
-
-  <section id="page-shop" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Live Market</h2>
-    <div class="shop-grid" id="shopGrid"></div>
-  </section>
-
-  <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Dashboard</h2>
-    <div class="info-grid" style="margin-bottom: 2rem;">
-        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">0 Qt</h2></div>
-        <div class="metric-card"><p>Active Farmers</p><h2 id="m2" style="color:var(--primary)">0</h2></div>
-        <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹0</h2></div>
-    </div>
-    <div class="section-box">
-        <h3 style="font-family: var(--font-display); margin-bottom: 1rem;">Recent Transactions</h3>
-        <div style="overflow-x: auto;">
-            <table>
-                <thead><tr><th>ID</th><th>Farmer</th><th>Crop</th><th>Qty</th><th>Total</th></tr></thead>
-                <tbody id="txnTableBody"></tbody>
-            </table>
+    <nav class="border-b border-gray-800 p-4 flex justify-between items-center sticky top-0 bg-black z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                <i class="fas fa-leaf text-white text-sm"></i>
+            </div>
+            <h1 class="text-xl font-bold tracking-tight">Agri<span class="text-green-500">Chain</span></h1>
         </div>
-    </div>
-  </section>
-</div>
+        <div class="flex items-center gap-4 text-gray-400 text-sm">
+            <span><i class="fas fa-search"></i></span>
+            <span class="bg-gray-800 px-3 py-1 rounded-full text-xs text-white">Adil Liyakat</span>
+        </div>
+    </nav>
 
-<script>
-  const DB = {
-    farmers: [{ id: 'F001', name: 'Ramesh Patil' }, { id: 'F002', name: 'Sunita Devi' }, { id: 'F004', name: 'Harpreet Singh' }],
-    inventory: [{ id: 'B001', crop: 'Wheat', qty: 240 }, { id: 'B002', crop: 'Onion', qty: 180 }, { id: 'B004', crop: 'Rice', qty: 320 }],
-    prices: { Wheat: 2320, Onion: 1850, Rice: 3100, Tomato: 1450, Potato: 1250 },
-    transactions: [{ id: 'T001', farmer: 'Sunita Devi', crop: 'Wheat', qty: 80, total: 176320 }, { id: 'T002', farmer: 'Ramesh Patil', crop: 'Onion', qty: 60, total: 105420 }]
-  };
+    <main class="p-6 max-w-7xl mx-auto">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="text-2xl font-bold">Dashboard</h2>
+                <p class="text-gray-500 text-sm">Real-time supply chain monitoring</p>
+            </div>
+            <div class="text-xs text-gray-500 bg-gray-900 px-3 py-1 rounded border border-gray-800">
+                Network: <span class="text-green-500">Render API Live</span>
+            </div>
+        </div>
 
-  function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
-  function navAction(page) { toggleMenu(); showPage(page); }
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="card-bg p-6">
+                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Total Inventory</p>
+                <h3 id="total-inventory-val" class="text-3xl font-bold text-green-custom tracking-tighter">Loading...</h3>
+            </div>
+            
+            <div class="card-bg p-6">
+                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Active Farmers</p>
+                <h3 id="active-farmers-count" class="text-3xl font-bold text-green-custom tracking-tighter">0</h3>
+            </div>
 
-  function showPage(p) {
-    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-    document.getElementById('page-'+p).classList.add('active');
-    if(p === 'shop') renderShop();
-    if(p === 'dashboard') renderDashboard();
-    window.scrollTo(0,0);
-  }
+            <div class="card-bg p-6">
+                <p class="text-gray-400 text-xs uppercase tracking-wider mb-2 font-semibold">Trade Value</p>
+                <h3 class="text-3xl font-bold text-green-custom tracking-tighter">₹ 2,81,740</h3>
+            </div>
+        </div>
 
-  function renderShop() {
-    const grid = document.getElementById('shopGrid');
-    grid.innerHTML = Object.entries(DB.prices).map(([crop, price]) => `
-      <div class="metric-card">
-        <h3 style="font-family:var(--font-display)">${crop}</h3>
-        <h2 style="color:var(--primary)">₹${Math.round(price * 0.95)}/Qt</h2>
-        <button class="btn-primary">Add to Cart</button>
-      </div>
-    `).join('');
-  }
+        <div class="card-bg overflow-hidden">
+            <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/30">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gray-400">Recent Transactions</h4>
+                <button class="text-xs text-green-500 font-bold hover:underline">View All</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="text-gray-500 text-xs border-b border-gray-800 bg-black/20">
+                        <tr>
+                            <th class="py-4 px-6 font-medium">BATCH ID</th>
+                            <th class="font-medium">FARMER</th>
+                            <th class="font-medium">CROP</th>
+                            <th class="font-medium">QTY</th>
+                            <th class="font-medium">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-table-body" class="text-sm divide-y divide-gray-800">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
-  function renderDashboard() {
-    const totalQty = DB.inventory.reduce((a, b) => a + b.qty, 0);
-    const totalVal = DB.transactions.reduce((a, b) => a + b.total, 0);
-    document.getElementById('m1').innerText = totalQty + ' Qt';
-    document.getElementById('m2').innerText = DB.farmers.length;
-    document.getElementById('m3').innerText = '₹' + totalVal.toLocaleString('en-IN');
-    document.getElementById('txnTableBody').innerHTML = DB.transactions.map(t => `
-      <tr><td><code>${t.id}</code></td><td>${t.farmer}</td><td>${t.crop}</td><td>${t.qty}</td><td><strong>₹${t.total.toLocaleString('en-IN')}</strong></td></tr>
-    `).join('');
-  }
-
-  window.onload = () => { renderDashboard(); };
-</script>
+    <script src="app.js"></script>
 </body>
 </html>
