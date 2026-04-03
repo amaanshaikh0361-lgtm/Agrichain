@@ -35,39 +35,40 @@
   }
   .nav-popup.open { right: 0; }
   .popup-header { display: flex; justify-content: flex-end; }
-  .close-btn { background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+  .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; }
   .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; transition: 0.3s; }
   .pop-link:hover { color: var(--primary); transform: translateX(10px); }
 
   /* 🟢 LAYOUT */
-  #app { padding-top: 100px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
+  #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
   .page { display: none; opacity: 0; }
   .page.active { display: block; opacity: 1; }
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
   
-  /* 🟢 DASHBOARD SPECIFIC */
-  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-  .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-  .metric-card h2 { font-family: var(--font-display); color: var(--primary); font-size: 2rem; margin-top: 5px; }
+  /* 🟢 HERO & FEATURES */
+  .hero { text-align: center; padding: 40px 0; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+  .card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 18px; border: 1px solid var(--border); }
   
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
-  th { text-align: left; color: #666; padding: 12px; border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 0.75rem; }
-  td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
+  .step-num { background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
 
-  .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
-
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-  .floating { animation: float 4s infinite ease-in-out; }
+  /* 🟢 TABLES & SHOP */
+  .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99,153,34,0.2); }
+  
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  th { text-align: left; color: #666; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
+  td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 0.85rem; }
 </style>
 </head>
 <body>
 
 <nav>
   <a class="nav-logo" href="#" onclick="showPage('home')">Agri<span>Chain</span></a>
-  <div class="menu-toggle" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <div class="nav-popup" id="navPopup">
@@ -79,24 +80,43 @@
 
 <div id="app">
   <section id="page-home" class="page active">
-    <div style="text-align: center; padding: 40px 0;">
-      <h1 style="font-family: var(--font-display); font-size: 3.5rem; line-height: 1.1;">Fresh Crops,<br><span style="color:var(--primary)">Fair Prices.</span></h1>
-      <p style="color:#888; margin: 20px auto; max-width: 500px;">Direct from farmers to your warehouse. 5% cheaper than Mandi.</p>
+    <div class="hero">
+      <h1>Direct From<br><span style="color:var(--primary)">Farm To Warehouse</span></h1>
+      <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches. Trusted by 1,200+ farmers.</p>
       <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('shop')">Explore Market →</button>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">🤝 Why AgriChain is Your Best Deal</h2>
+      <p style="color:#888; font-size: 0.9rem;">AgriChain bundles transport, storage, and quality checks into one transparent price.</p>
+      <div class="info-grid">
+        <div class="card"><strong>💸 5% Below Mandi</strong><p style="font-size: 0.8rem; color:#666;">Always cheaper than market rates.</p></div>
+        <div class="card"><strong>🚚 Transport Included</strong><p style="font-size: 0.8rem; color:#666;">No separate delivery charges.</p></div>
+        <div class="card"><strong>✅ Graded & Quality</strong><p style="font-size: 0.8rem; color:#666;">Every batch is weighed and graded.</p></div>
+        <div class="card"><strong>🔒 Safe Payments</strong><p style="font-size: 0.8rem; color:#666;">Direct to bank with GST invoice.</p></div>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ System Workflow</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p style="font-size:0.8rem; color:#888;">Staff logs quantity and grade.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p style="font-size:0.8rem; color:#888;">Instant SMS with batch ID to farmer.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Market Sync</strong><p style="font-size:0.8rem; color:#888;">Price set 5% lower than live mandi.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Settlement</strong><p style="font-size:0.8rem; color:#888;">Payment in 3 days directly to bank.</p></div></div>
     </div>
   </section>
 
   <section id="page-shop" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Market Inventory</h2>
+    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Live Market</h2>
     <div class="shop-grid" id="shopGrid"></div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Warehouse Dashboard</h2>
-    <div class="metric-grid">
-        <div class="metric-card"><p>Total Inventory</p><h2 id="m1">0 Qt</h2></div>
-        <div class="metric-card"><p>Active Farmers</p><h2 id="m2">0</h2></div>
-        <div class="metric-card"><p>Trade Value</p><h2 id="m3">₹0</h2></div>
+    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Dashboard</h2>
+    <div class="info-grid" style="margin-bottom: 2rem;">
+        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">0 Qt</h2></div>
+        <div class="metric-card"><p>Active Farmers</p><h2 id="m2" style="color:var(--primary)">0</h2></div>
+        <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹0</h2></div>
     </div>
     <div class="section-box">
         <h3 style="font-family: var(--font-display); margin-bottom: 1rem;">Recent Transactions</h3>
@@ -111,23 +131,11 @@
 </div>
 
 <script>
-  // 🟢 ORIGINAL DATA
   const DB = {
-    farmers: [
-      { id: 'F001', name: 'Ramesh Patil', crop: 'Onion' },
-      { id: 'F002', name: 'Sunita Devi', crop: 'Wheat' },
-      { id: 'F004', name: 'Harpreet Singh', crop: 'Rice' }
-    ],
-    inventory: [
-      { id: 'B001', crop: 'Wheat', farmerName: 'Sunita Devi', qty: 240 },
-      { id: 'B002', crop: 'Onion', farmerName: 'Ramesh Patil', qty: 180 },
-      { id: 'B004', crop: 'Rice', farmerName: 'Harpreet Singh', qty: 320 }
-    ],
+    farmers: [{ id: 'F001', name: 'Ramesh Patil' }, { id: 'F002', name: 'Sunita Devi' }, { id: 'F004', name: 'Harpreet Singh' }],
+    inventory: [{ id: 'B001', crop: 'Wheat', qty: 240 }, { id: 'B002', crop: 'Onion', qty: 180 }, { id: 'B004', crop: 'Rice', qty: 320 }],
     prices: { Wheat: 2320, Onion: 1850, Rice: 3100, Tomato: 1450, Potato: 1250 },
-    transactions: [
-      { id: 'T001', farmer: 'Sunita Devi', crop: 'Wheat', qty: 80, total: 176320 },
-      { id: 'T002', farmer: 'Ramesh Patil', crop: 'Onion', qty: 60, total: 105420 }
-    ]
+    transactions: [{ id: 'T001', farmer: 'Sunita Devi', crop: 'Wheat', qty: 80, total: 176320 }, { id: 'T002', farmer: 'Ramesh Patil', crop: 'Onion', qty: 60, total: 105420 }]
   };
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
@@ -153,22 +161,13 @@
   }
 
   function renderDashboard() {
-    // Totals logic
     const totalQty = DB.inventory.reduce((a, b) => a + b.qty, 0);
     const totalVal = DB.transactions.reduce((a, b) => a + b.total, 0);
-    
     document.getElementById('m1').innerText = totalQty + ' Qt';
     document.getElementById('m2').innerText = DB.farmers.length;
     document.getElementById('m3').innerText = '₹' + totalVal.toLocaleString('en-IN');
-
     document.getElementById('txnTableBody').innerHTML = DB.transactions.map(t => `
-      <tr>
-        <td><code>${t.id}</code></td>
-        <td>${t.farmer}</td>
-        <td>${t.crop}</td>
-        <td>${t.qty}</td>
-        <td><strong>₹${t.total.toLocaleString('en-IN')}</strong></td>
-      </tr>
+      <tr><td><code>${t.id}</code></td><td>${t.farmer}</td><td>${t.crop}</td><td>${t.qty}</td><td><strong>₹${t.total.toLocaleString('en-IN')}</strong></td></tr>
     `).join('');
   }
 
