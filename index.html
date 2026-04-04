@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AgriChain Pro</title>
+<title>AgriChain Pro — Dynamic Market</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
@@ -29,18 +29,16 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
-  .hero { text-align: center; padding: 50px 0; }
-  .hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 7vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
+  .hero { text-align: center; padding: 40px 0; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 7vw, 3.2rem); line-height: 1.1; margin-bottom: 15px; }
   .btn-primary { background: var(--primary); color: #fff; border: none; padding: 15px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; font-size: 1rem; }
   
-  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
-  .card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
-  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); padding: 18px; border-radius: 18px; border-left: 4px solid var(--primary); }
-  .step-num { background: var(--primary); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+  /* DYNAMIC MARKET GRID */
+  .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
+  .crop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+  .crop-card:active { transform: scale(0.95); background: rgba(99,153,34,0.1); border-color: var(--primary); }
+  .crop-card h3 { font-size: 2rem; margin-bottom: 8px; }
 
-  .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 20px; }
-  .crop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; }
-  
   input { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; }
   table { width: 100%; border-collapse: collapse; margin-top: 15px; }
   th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.9rem; }
@@ -64,37 +62,34 @@
   <section id="page-home" class="page active">
     <div class="hero">
       <h1>Direct From Farm<br><span style="color:var(--primary)">To Warehouse</span></h1>
-      <p style="color:#888; margin-bottom:20px;">Blockchain verified transparency aur genuine data.</p>
+      <p style="color:#888; margin-bottom:20px;">Blockchain verified transparency aur live farm data.</p>
       <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="showPage('market')">Browse Market →</button>
     </div>
 
     <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">Why AgriChain?</h2>
-      <div class="info-grid">
-        <div class="card"><h3>0% Middlemen</h3><p>Direct deal with verified farmers.</p></div>
-        <div class="card"><h3>Verified Stock</h3><p>Har batch warehouse mein check hota hai.</p></div>
+      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">⚙️ Business Workflow</h2>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <p>1. Farmer registers batch.</p>
+        <p>2. Admin verifies and accepts.</p>
+        <p>3. Crop appears automatically in Market.</p>
       </div>
-    </div>
-
-    <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ How It Works</h2>
-      <div class="step"><div class="step-num">1</div><div><strong>Farmer Onboarding</strong></div></div>
-      <div class="step"><div class="step-num">2</div><div><strong>Quality Check</strong></div></div>
-      <div class="step"><div class="step-num">3</div><div><strong>Live Listing</strong></div></div>
     </div>
   </section>
 
   <section id="page-market" class="page">
-    <h2 style="font-family: var(--font-display);">🛒 Live Inventory</h2>
-    <div class="market-grid">
-      <div class="crop-card" onclick="showFarmers('Wheat')"><h3>🌾</h3><p>Wheat</p></div>
-      <div class="crop-card" onclick="showFarmers('Rice')"><h3>🍚</h3><p>Rice</p></div>
-      <div class="crop-card" onclick="showFarmers('Onion')"><h3>🧅</h3><p>Onion</p></div>
-      <div class="crop-card" onclick="showFarmers('Potato')"><h3>🥔</h3><p>Potato</p></div>
-    </div>
-    <div id="marketResults" class="section-box" style="display:none; margin-top:20px;">
+    <h2 style="font-family: var(--font-display);">🛒 Live Market</h2>
+    <p style="color:#888;">Select a category to see verified farmers.</p>
+    
+    <div class="market-grid" id="dynamicMarketGrid"></div>
+
+    <div id="marketResults" class="section-box" style="display:none; margin-top:30px;">
       <h3 id="cropHeader" style="color:var(--primary); margin-bottom:15px;">Verified Stock</h3>
-      <div style="overflow-x:auto;"><table><thead><tr><th>Farmer</th><th>Qty</th><th>Status</th></tr></thead><tbody id="marketTableBody"></tbody></table></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Farmer</th><th>Quantity</th><th>Status</th></tr></thead>
+          <tbody id="marketTableBody"></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -103,24 +98,29 @@
       <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">📢 Farmer Portal</h2>
       <form id="sellForm">
         <input type="text" id="f_name" placeholder="Full Name" required>
-        <input type="text" id="f_crop" placeholder="Crop (Wheat/Rice...)" required>
+        <input type="text" id="f_crop" placeholder="Crop Name (e.g. Wheat, Mango, Grapes)" required>
         <input type="number" id="f_qty" placeholder="Quantity (KG)" required>
-        <button type="submit" class="btn-primary">Register My Crop</button>
+        <button type="submit" class="btn-primary">List My Crop</button>
       </form>
     </div>
   </section>
 
   <section id="page-admin-login" class="page">
     <div class="section-box" style="max-width: 400px; margin: auto;">
-      <h2 style="font-family: var(--font-display); margin-bottom: 15px;">🔐 Admin Login</h2>
+      <h2 style="font-family: var(--font-display); margin-bottom: 15px;">🔐 Admin Access</h2>
       <input type="password" id="adminPass" placeholder="Secret Key">
       <button class="btn-primary" onclick="loginAdmin()">Login</button>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Admin Panel</h2>
-    <div class="section-box" style="overflow-x: auto;"><table id="adminTable"><thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Action</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Approval Queue</h2>
+    <div class="section-box" style="overflow-x: auto;">
+      <table>
+        <thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Action</th></tr></thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
   </section>
 </div>
 
@@ -130,29 +130,20 @@
   let isAuth = false;
   let cachedData = [];
 
-  // Toggle Function (Sirf hamburger icon ke liye)
-  function toggleMenu() { 
-    document.getElementById('navPopup').classList.toggle('open'); 
-  }
+  function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
   
-  // FIXED SHOWPAGE: Ye page change karega aur menu band karega agar khula ho toh
   function showPage(p) {
-    // Menu band karo (agar khula hai toh)
     document.getElementById('navPopup').classList.remove('open');
-    
-    // Pages switch karo
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     const target = document.getElementById('page-'+p);
     if(target) target.classList.add('active');
     
-    // Data sync karo
-    if(p === 'market' || p === 'home') syncData();
+    if(p === 'market' || p === 'home') syncAndRenderMarket();
     if(p === 'dashboard' && isAuth) renderAdmin();
-    
     window.scrollTo(0,0);
   }
 
-  // Triple Tap Hidden Login
+  // Triple Tap Logo
   let taps = 0;
   document.getElementById('logoBtn').addEventListener('click', () => {
     taps++;
@@ -161,51 +152,105 @@
   });
 
   function loginAdmin() {
-    if(document.getElementById('adminPass').value === SECRET) { 
-      isAuth = true; 
-      showPage('dashboard'); 
-    } else { 
-      alert("Wrong Password!"); 
-    }
+    if(document.getElementById('adminPass').value === SECRET) { isAuth = true; showPage('dashboard'); }
+    else { alert("Access Denied"); }
   }
 
-  async function syncData() {
+  // 🔄 DYNAMIC MARKET ENGINE
+  async function syncAndRenderMarket() {
     try {
       const res = await fetch(`${API_URL}/inventory`);
       cachedData = await res.json();
-    } catch(e) { console.log("DB sync error"); }
+      
+      // Get unique verified crops only
+      const verifiedItems = cachedData.filter(d => !d.grade.includes('Pending'));
+      const uniqueCrops = [...new Set(verifiedItems.map(item => item.crop))];
+
+      const grid = document.getElementById('dynamicMarketGrid');
+      
+      if(uniqueCrops.length === 0) {
+        grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:#888;'>No verified crops in market yet.</p>";
+        return;
+      }
+
+      // Generate cards automatically
+      grid.innerHTML = uniqueCrops.map(cropName => {
+        let emoji = "📦"; // Default
+        const c = cropName.toLowerCase();
+        if(c.includes('wheat')) emoji = "🌾";
+        else if(c.includes('rice')) emoji = "🍚";
+        else if(c.includes('onion')) emoji = "🧅";
+        else if(c.includes('potato')) emoji = "🥔";
+        else if(c.includes('mango')) emoji = "🥭";
+        else if(c.includes('grape')) emoji = "🍇";
+        else if(c.includes('tomato')) emoji = "🍅";
+
+        return `
+          <div class="crop-card" onclick="showFarmers('${cropName}')">
+            <h3>${emoji}</h3>
+            <p>${cropName}</p>
+          </div>
+        `;
+      }).join('');
+
+    } catch(e) { console.log("Sync Error"); }
   }
 
   function showFarmers(crop) {
     document.getElementById('marketResults').style.display = 'block';
-    const verified = cachedData.filter(d => d.crop.toLowerCase() === crop.toLowerCase() && !d.grade.includes('Pending'));
-    document.getElementById('marketTableBody').innerHTML = verified.length > 0 
-      ? verified.map(v => `<tr><td>${v.farmerName}</td><td>${v.quantity} KG</td><td style="color:var(--primary);">Verified ✅</td></tr>`).join('')
-      : `<tr><td colspan="3">No verified stock for ${crop}.</td></tr>`;
+    document.getElementById('cropHeader').innerText = `Verified ${crop} Farmers`;
+    const filtered = cachedData.filter(d => d.crop === crop && !d.grade.includes('Pending'));
+    
+    document.getElementById('marketTableBody').innerHTML = filtered.map(v => `
+      <tr>
+        <td><strong>${v.farmerName}</strong></td>
+        <td>${v.quantity} KG</td>
+        <td style="color:var(--primary); font-weight:bold;">VERIFIED ✅</td>
+      </tr>
+    `).join('');
+    
     document.getElementById('marketResults').scrollIntoView({ behavior: 'smooth' });
   }
 
+  // ADMIN DASHBOARD
   async function renderAdmin() {
     const res = await fetch(`${API_URL}/inventory`);
     const data = await res.json();
     document.getElementById('adminTableBody').innerHTML = data.map(t => `
-      <tr><td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td><td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:5px; border-radius:5px; cursor:pointer;">Accept</button>` : '✅'}</td></tr>
+      <tr>
+        <td>${t.farmerName}</td>
+        <td>${t.crop}</td>
+        <td>${t.quantity}</td>
+        <td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer;">Accept</button>` : '✅'}</td>
+      </tr>
     `).join('');
   }
 
   async function approve(id) {
-    await fetch(`${API_URL}/inventory/verify/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-api-key': SECRET } });
+    await fetch(`${API_URL}/inventory/verify/${id}`, { 
+      method: 'PUT', 
+      headers: { 'Content-Type': 'application/json', 'x-api-key': SECRET } 
+    });
     renderAdmin();
   }
 
   document.getElementById('sellForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const data = { farmerName: document.getElementById('f_name').value, crop: document.getElementById('f_crop').value, quantity: parseInt(document.getElementById('f_qty').value) };
-    await fetch(`${API_URL}/public/list-crop`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-    alert("Listing Registered!"); showPage('home');
+    const data = {
+      farmerName: document.getElementById('f_name').value,
+      crop: document.getElementById('f_crop').value,
+      quantity: parseInt(document.getElementById('f_qty').value)
+    };
+    await fetch(`${API_URL}/public/list-crop`, { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(data) 
+    });
+    alert("Batch Registered! Waiting for Admin Approval.");
+    showPage('home');
   });
 
-  window.onload = syncData;
+  window.onload = syncAndRenderMarket;
 </script>
 </body>
 </html>
