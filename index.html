@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AgriChain Pro — Mobile Secure</title>
+<title>AgriChain Pro — Secure Supply</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
@@ -12,17 +12,8 @@
 
   /* NAVIGATION */
   nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000; }
-  
-  /* 🕵️‍♂️ Logo Style (Hold to Open Admin) */
-  .nav-logo { 
-    font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; 
-    cursor: pointer; 
-    user-select: none; 
-    -webkit-user-select: none; 
-    -webkit-touch-callout: none; /* iOS menu block */
-  }
+  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; cursor: pointer; user-select: none; }
   .nav-logo span { color: var(--primary); }
-  
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
@@ -31,26 +22,29 @@
   .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; align-self: flex-end; }
   .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
 
-  /* LAYOUT */
+  /* CONTENT AREA */
   #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
-  .page { display: none; opacity: 0; }
-  .page.active { display: block; opacity: 1; transition: opacity 0.3s; }
-  .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
-  
-  .hero { text-align: center; padding: 40px 0; }
-  .hero h1 { font-family: var(--font-display); font-size: 2.5rem; line-height: 1.1; }
-  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; }
-  
-  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; font-size: 16px; }
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.3s ease-in; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  th, td { padding: 12px 5px; border-bottom: 1px solid var(--border); text-align: left; }
+  .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
+  .hero { text-align: center; padding: 30px 0; }
+  .hero h1 { font-family: var(--font-display); font-size: 2.6rem; line-height: 1.1; margin-bottom: 10px; }
+  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; font-size: 1rem; }
+  
+  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 15px; }
+  .step-num { background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+
+  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; font-size: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+  th, td { padding: 12px 8px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.85rem; }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo" id="adminTrigger" oncontextmenu="return false;">Agri<span>Chain</span></div>
+  <div class="nav-logo" id="logoBtn">Agri<span>Chain</span></div>
   <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
@@ -63,38 +57,45 @@
 <div id="app">
   <section id="page-home" class="page active">
     <div class="hero">
-      <h1>Secure Supply<br><span style="color:var(--primary)">Digital Chain</span></h1>
-      <p style="color:#888; margin-top:10px;">Direct from farmer to warehouse.</p>
-      <button class="btn-primary" style="width:auto; padding: 12px 30px;" onclick="navAction('sell')">Start Selling →</button>
+      <h1>Farm To<br><span style="color:var(--primary)">Warehouse</span></h1>
+      <p style="color:#888; margin-top:10px;">Direct transparency. No middlemen. Verified crops.</p>
+      <button class="btn-primary" style="width:auto; padding:12px 35px;" onclick="navAction('sell')">Start Selling →</button>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">How It Works</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer Lists Crop</strong><p style="font-size:0.8rem; color:#888;">Fill the form with crop details.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Admin Verification</strong><p style="font-size:0.8rem; color:#888;">We verify and approve the batch.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Market Ready</strong><p style="font-size:0.8rem; color:#888;">Batch is listed as Verified.</p></div></div>
     </div>
   </section>
 
   <section id="page-sell" class="page">
     <div class="section-box">
-      <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">📢 Listing Request</h2>
+      <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">Register Batch</h2>
       <form id="farmerForm">
-        <input type="text" id="s_name" placeholder="Apka Naam" required>
-        <input type="text" id="s_crop" placeholder="Fasal" required>
-        <input type="number" id="s_qty" placeholder="Quantity (KG)" required>
-        <button type="submit" class="btn-primary">Register Now</button>
+        <input type="text" id="f_name" placeholder="Farmer Name" required>
+        <input type="text" id="f_crop" placeholder="Crop Name" required>
+        <input type="number" id="f_qty" placeholder="Quantity (KG)" required>
+        <button type="submit" class="btn-primary">Submit Listing</button>
       </form>
     </div>
   </section>
 
-  <section id="page-admin-auth" class="page">
-    <div class="section-box" style="max-width: 400px; margin: auto;">
+  <section id="page-admin-login" class="page">
+    <div class="section-box" style="max-width: 400px; margin: 20px auto;">
       <h2 style="font-family: var(--font-display); margin-bottom: 15px;">🔐 Secret Entry</h2>
-      <input type="password" id="adminPass" placeholder="Secret Key">
-      <button class="btn-primary" onclick="verifyAdmin()">Unlock</button>
+      <input type="password" id="adminPass" placeholder="Enter Code">
+      <button class="btn-primary" onclick="checkAuth()">Unlock</button>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Admin Control</h2>
-    <div class="section-box" style="overflow-x: auto;">
+    <h2 style="font-family: var(--font-display); margin-bottom: 15px;">📊 Admin Panel</h2>
+    <div class="section-box" style="overflow-x: auto; padding: 10px;">
       <table>
         <thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Action</th></tr></thead>
-        <tbody id="txnTableBody"></tbody>
+        <tbody id="dashTable"></tbody>
       </table>
     </div>
   </section>
@@ -103,79 +104,74 @@
 <script>
   const API_URL = "https://agrichain-backend-y068.onrender.com/api";
   const SECRET = "Adil_Agri_Secure_786";
-  let isVerified = false;
+  let isAuth = false;
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
   function navAction(p) { toggleMenu(); showPage(p); }
 
   function showPage(p) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-    document.getElementById('page-'+p).classList.add('active');
-    if(p === 'dashboard' && isVerified) renderDashboard();
+    const target = document.getElementById('page-'+p);
+    if(target) target.classList.add('active');
+    if(p === 'dashboard' && isAuth) fetchAdminData();
+    window.scrollTo(0,0);
   }
 
-  // 🕵️‍♂️ MOBILE SECRET TRAP (Hold 3 seconds)
-  const trigger = document.getElementById('adminTrigger');
-  let timer;
-
-  trigger.addEventListener('touchstart', (e) => {
-    timer = setTimeout(() => {
-      showPage('admin-auth');
-    }, 3000); 
+  // 🕵️‍♂️ TRIPLE TAP LOGIC (Secret Trigger)
+  let clickCount = 0;
+  const logo = document.getElementById('logoBtn');
+  logo.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount === 3) {
+      clickCount = 0;
+      showPage('admin-login');
+    }
+    setTimeout(() => { clickCount = 0; }, 1000); // 1 sec mein 3 baar click karna hoga
   });
 
-  trigger.addEventListener('touchend', () => clearTimeout(timer));
-  trigger.addEventListener('touchmove', () => clearTimeout(timer));
-
-  function verifyAdmin() {
+  function checkAuth() {
     if(document.getElementById('adminPass').value === SECRET) {
-      isVerified = true;
+      isAuth = true;
       showPage('dashboard');
-    } else { alert("Access Denied!"); }
+    } else { alert("Wrong Password!"); }
   }
 
-  // Farmer Listing Submit
+  // Farmer Form Submit
   document.getElementById('farmerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
-      farmerName: document.getElementById('s_name').value,
-      crop: document.getElementById('s_crop').value,
-      quantity: parseInt(document.getElementById('s_qty').value)
+      farmerName: document.getElementById('f_name').value,
+      crop: document.getElementById('f_crop').value,
+      quantity: parseInt(document.getElementById('f_qty').value)
     };
     const res = await fetch(`${API_URL}/public/list-crop`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    if(res.ok) {
-      alert("Request Sent to Admin!");
-      showPage('home');
-    }
+    if(res.ok) { alert("Sent to Admin!"); showPage('home'); document.getElementById('farmerForm').reset(); }
   });
 
-  async function renderDashboard() {
+  async function fetchAdminData() {
     const res = await fetch(`${API_URL}/inventory`);
     const data = await res.json();
-    document.getElementById('txnTableBody').innerHTML = data.map(t => {
-      const isPending = t.grade.includes('Pending');
-      return `
-        <tr>
-          <td>${t.farmerName}</td>
-          <td>${t.crop}</td>
-          <td>${t.quantity}</td>
-          <td>${isPending ? `<button onclick="accept('${t._id}')" style="background:#2ecc71; border:none; color:#fff; padding:5px; border-radius:4px;">Verify</button>` : '✅'}</td>
-        </tr>
-      `;
-    }).join('');
+    document.getElementById('dashTable').innerHTML = data.map(t => `
+      <tr>
+        <td>${t.farmerName}</td>
+        <td>${t.crop}</td>
+        <td>${t.quantity}</td>
+        <td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:5px 10px; border-radius:5px;">Accept</button>` : '✅'}</td>
+      </tr>
+    `).join('');
   }
 
-  async function accept(id) {
-    if(!isVerified) return;
+  async function approve(id) {
+    if(!isAuth) return;
     await fetch(`${API_URL}/inventory/verify/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'x-api-key': SECRET }
     });
-    renderDashboard();
+    fetchAdminData();
   }
 </script>
 </body>
