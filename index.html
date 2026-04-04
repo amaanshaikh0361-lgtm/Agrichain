@@ -25,7 +25,7 @@
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
-  /* 🟢 POP-UP MENU (RE-ACTIVATED) */
+  /* 🟢 POP-UP MENU */
   .nav-popup {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px);
@@ -41,11 +41,11 @@
 
   /* 🟢 LAYOUT */
   #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
-  .page { display: none; opacity: 0; transition: opacity 0.3s ease; }
+  .page { display: none; opacity: 0; }
   .page.active { display: block; opacity: 1; }
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
   
-  /* 🟢 CARDS & BUTTONS */
+  /* 🟢 HERO & FEATURES */
   .hero { text-align: center; padding: 40px 0; }
   .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
   .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
@@ -54,6 +54,7 @@
   .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
   .step-num { background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
 
+  /* 🟢 TABLES & SHOP */
   .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
   .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
   .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99,153,34,0.2); }
@@ -84,20 +85,45 @@
       <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches. Trusted by 1,200+ farmers.</p>
       <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('shop')">Explore Market →</button>
     </div>
-    </section>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">🤝 Why AgriChain is Your Best Deal</h2>
+      <div class="info-grid">
+        <div class="card"><strong>💸 5% Below Mandi</strong><p style="font-size: 0.8rem; color:#666;">Always cheaper than market rates.</p></div>
+        <div class="card"><strong>🚚 Transport Included</strong><p style="font-size: 0.8rem; color:#666;">No separate delivery charges.</p></div>
+        <div class="card"><strong>✅ Graded & Quality</strong><p style="font-size: 0.8rem; color:#666;">Every batch is weighed and graded.</p></div>
+        <div class="card"><strong>🔒 Safe Payments</strong><p style="font-size: 0.8rem; color:#666;">Direct to bank with GST invoice.</p></div>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ System Workflow</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p style="font-size:0.8rem; color:#888;">Staff logs quantity and grade.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p style="font-size:0.8rem; color:#888;">Instant SMS with batch ID to farmer.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Market Sync</strong><p style="font-size:0.8rem; color:#888;">Price set 5% lower than live mandi.</p></div></div>
+    </div>
+  </section>
+
+  <section id="page-shop" class="page">
+    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Live Market</h2>
+    <div class="info-grid" id="shopGrid">
+        <div class="metric-card"><h3>Wheat</h3><h2 style="color:var(--primary)">₹2,204/Qt</h2><button class="btn-primary">Buy Now</button></div>
+        <div class="metric-card"><h3>Rice</h3><h2 style="color:var(--primary)">₹2,945/Qt</h2><button class="btn-primary">Buy Now</button></div>
+    </div>
+  </section>
 
   <section id="page-dashboard" class="page">
     <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Dashboard</h2>
     <div class="info-grid" style="margin-bottom: 2rem;">
-        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">Loading...</h2></div>
+        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">0 KG</h2></div>
         <div class="metric-card"><p>Active Farmers</p><h2 id="m2" style="color:var(--primary)">0</h2></div>
-        <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹ 0</h2></div>
+        <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹0</h2></div>
     </div>
     <div class="section-box">
         <h3 style="font-family: var(--font-display); margin-bottom: 1rem;">Recent Transactions</h3>
         <div style="overflow-x: auto;">
             <table>
-                <thead><tr><th>ID</th><th>Farmer</th><th>Crop</th><th>Qty (KG)</th><th>Status</th></tr></thead>
+                <thead><tr><th>ID</th><th>Farmer</th><th>Crop</th><th>Qty</th><th>Status</th></tr></thead>
                 <tbody id="txnTableBody"></tbody>
             </table>
         </div>
@@ -106,7 +132,6 @@
 </div>
 
 <script>
-  // RENDER BACKEND URL
   const API_URL = "https://agrichain-backend-y068.onrender.com/api/inventory";
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
@@ -115,44 +140,39 @@
   function showPage(p) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-'+p).classList.add('active');
-    if(p === 'dashboard') fetchAndRenderDashboard();
+    if(p === 'dashboard') renderRealDashboard();
     window.scrollTo(0,0);
   }
 
-  async function fetchAndRenderDashboard() {
+  async function renderRealDashboard() {
     try {
       const response = await fetch(API_URL);
-      const batches = await response.json();
+      const data = await response.json();
 
-      if (batches && batches.length > 0) {
-        // Stats Calculation
-        const totalQty = batches.reduce((a, b) => a + b.quantity, 0);
-        const farmers = [...new Set(batches.map(b => b.farmerName))].length;
-
-        // UI Update (Original IDs)
+      if (data && data.length > 0) {
+        const totalQty = data.reduce((sum, item) => sum + item.quantity, 0);
+        const farmers = [...new Set(data.map(item => item.farmerName))].length;
+        
         document.getElementById('m1').innerText = totalQty + ' KG';
         document.getElementById('m2').innerText = farmers;
-        document.getElementById('m3').innerText = '₹' + (totalQty * 23).toLocaleString('en-IN'); // Sample logic
+        document.getElementById('m3').innerText = '₹' + (totalQty * 24).toLocaleString('en-IN');
 
-        // Table Update
-        document.getElementById('txnTableBody').innerHTML = batches.map(t => `
+        document.getElementById('txnTableBody').innerHTML = data.map(t => `
           <tr>
             <td><code>${t.batchId}</code></td>
             <td>${t.farmerName}</td>
-            <td>${item.crop || 'Wheat'}</td>
+            <td>${t.crop}</td>
             <td>${t.quantity}</td>
             <td style="color:var(--primary); font-weight:bold;">VERIFIED</td>
           </tr>
         `).join('');
       }
-    } catch (err) {
-      console.error("Backend Error:", err);
-      document.getElementById('m1').innerText = "Offline";
+    } catch (error) {
+      console.log("Error:", error);
     }
   }
 
-  // Initial render for Dashboard if it's the home state
-  window.onload = () => { fetchAndRenderDashboard(); };
+  window.onload = () => { renderRealDashboard(); };
 </script>
 </body>
 </html>
