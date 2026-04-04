@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AgriChain Pro — Market Transparency</title>
+<title>AgriChain — Market Live</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
@@ -12,37 +12,40 @@
 
   /* NAV */
   nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000; }
-  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; cursor: pointer; }
+  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; cursor: pointer; user-select: none; }
   .nav-logo span { color: var(--primary); }
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
+  /* POPUP MENU (Yahan button missing tha) */
   .nav-popup { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px; gap: 1.5rem; transition: 0.4s; z-index: 2000; }
   .nav-popup.open { right: 0; }
   .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; align-self: flex-end; }
   .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+  .pop-link:hover { color: var(--primary); }
 
   /* LAYOUT */
-  #app { padding-top: 90px; width: 95%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
+  #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
   .page { display: none; }
   .page.active { display: block; animation: fadeIn 0.3s ease-in; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 20px; margin-top: 20px; }
-  .hero { text-align: center; padding: 30px 0; }
-  .hero h1 { font-family: var(--font-display); font-size: 2.4rem; line-height: 1.1; }
-  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
+  .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
+  .hero { text-align: center; padding: 40px 0; }
+  .hero h1 { font-family: var(--font-display); font-size: 2.5rem; line-height: 1.1; margin-bottom: 15px; }
+  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
   
-  /* SHOP CARDS */
-  .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-  .crop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; }
-  .crop-card:active { transform: scale(0.95); border-color: var(--primary); }
+  /* MARKET GRID */
+  .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+  .crop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; cursor: pointer; }
+  .crop-card:active { transform: scale(0.95); background: rgba(99,153,34,0.1); }
+  .crop-card h3 { font-size: 2rem; margin-bottom: 10px; }
 
-  /* FARMER LIST TABLE */
-  .farmer-list-section { margin-top: 30px; display: none; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
-  th, td { padding: 12px 8px; border-bottom: 1px solid var(--border); text-align: left; }
-  .verify-badge { color: var(--primary); font-weight: bold; font-size: 0.7rem; background: rgba(99,153,34,0.1); padding: 2px 6px; border-radius: 4px; }
+  /* TABLE */
+  .farmer-list-view { display: none; margin-top: 30px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+  th, td { padding: 12px 8px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.85rem; }
+  .badge { color: var(--primary); font-weight: bold; background: rgba(99,153,34,0.1); padding: 3px 8px; border-radius: 5px; font-size: 0.7rem; }
 
   input { width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; }
 </style>
@@ -57,68 +60,68 @@
 <div class="nav-popup" id="navPopup">
   <button class="close-btn" onclick="toggleMenu()">✕</button>
   <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
-  <a href="#" class="pop-link" onclick="navAction('shop')">🛒 Explore Market</a>
+  <a href="#" class="pop-link" onclick="navAction('market')">🛒 Explore Market</a>
   <a href="#" class="pop-link" onclick="navAction('sell')">📢 Sell Crop</a>
 </div>
 
 <div id="app">
   <section id="page-home" class="page active">
     <div class="hero">
-      <h1>Farm To<br><span style="color:var(--primary)">Warehouse</span></h1>
-      <p style="color:#888; margin-top:10px;">Transparency you can trust.</p>
-      <button class="btn-primary" style="width:auto; padding:12px 40px;" onclick="navAction('shop')">View Live Market →</button>
+      <h1>Direct From Farm<br><span style="color:var(--primary)">To Warehouse</span></h1>
+      <p style="color:#888; margin-top:10px;">Market transparency with verified data.</p>
+      <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('market')">Shop Now →</button>
     </div>
   </section>
 
-  <section id="page-shop" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 10px;">🛒 Market Items</h2>
-    <p style="color:#888; font-size: 0.9rem;">Select a crop to see verified farmers & stock.</p>
-    
+  <section id="page-market" class="page">
+    <h2 style="font-family: var(--font-display); margin-bottom: 10px;">🛒 Live Market</h2>
+    <p style="color:#888;">Select a crop to view available verified farmers.</p>
+
     <div class="market-grid">
-      <div class="crop-card" onclick="filterFarmers('Wheat')"><h3>🌾</h3><p>Wheat</p></div>
-      <div class="crop-card" onclick="filterFarmers('Rice')"><h3>🍚</h3><p>Rice</p></div>
-      <div class="crop-card" onclick="filterFarmers('Onion')"><h3>🧅</h3><p>Onion</p></div>
-      <div class="crop-card" onclick="filterFarmers('Potato')"><h3>🥔</h3><p>Potato</p></div>
+      <div class="crop-card" onclick="loadFarmers('Wheat')"><h3>🌾</h3><p>Wheat</p></div>
+      <div class="crop-card" onclick="loadFarmers('Rice')"><h3>🍚</h3><p>Rice</p></div>
+      <div class="crop-card" onclick="loadFarmers('Onion')"><h3>🧅</h3><p>Onion</p></div>
+      <div class="crop-card" onclick="loadFarmers('Potato')"><h3>🥔</h3><p>Potato</p></div>
     </div>
 
-    <div id="farmerDisplay" class="farmer-list-section section-box">
-      <h3 id="selectedCropName" style="color:var(--primary); margin-bottom: 10px;">Verified Farmers</h3>
+    <div id="farmerBox" class="farmer-list-view section-box">
+      <h3 id="cropTitle" style="color:var(--primary); margin-bottom: 15px;">Verified Farmers</h3>
       <div style="overflow-x: auto;">
         <table>
-          <thead><tr><th>Farmer</th><th>Quantity</th><th>Quality</th></tr></thead>
-          <tbody id="customerFarmerTable"></tbody>
+          <thead><tr><th>Farmer Name</th><th>Quantity</th><th>Quality</th></tr></thead>
+          <tbody id="farmerTableBody"></tbody>
         </table>
       </div>
-      <button class="btn-primary" style="margin-top:20px;">Proceed to Buy</button>
+      <button class="btn-primary" style="margin-top:20px;">Contact For Bulk Order</button>
     </div>
   </section>
 
   <section id="page-sell" class="page">
     <div class="section-box">
-      <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">Register Batch</h2>
-      <form id="farmerForm">
-        <input type="text" id="f_name" placeholder="Farmer Name" required>
-        <input type="text" id="f_crop" placeholder="Crop Name (Wheat/Rice...)" required>
+      <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">Farmer Portal</h2>
+      <form id="sellForm">
+        <input type="text" id="f_name" placeholder="Name" required>
+        <input type="text" id="f_crop" placeholder="Crop (Wheat, Rice...)" required>
         <input type="number" id="f_qty" placeholder="Quantity (KG)" required>
-        <button type="submit" class="btn-primary">Submit Listing</button>
+        <button type="submit" class="btn-primary">Register Request</button>
       </form>
     </div>
   </section>
 
-  <section id="page-admin-login" class="page">
+  <section id="page-admin-auth" class="page">
     <div class="section-box" style="max-width: 400px; margin: auto;">
-      <h2>🔐 Admin Login</h2>
-      <input type="password" id="adminPass" placeholder="Enter Secret Code">
-      <button class="btn-primary" onclick="checkAuth()">Unlock Dashboard</button>
+      <h2>🔐 Admin Area</h2>
+      <input type="password" id="adminPass" placeholder="Secret Key">
+      <button class="btn-primary" onclick="loginAdmin()">Login</button>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 15px;">📊 Admin Panel</h2>
+    <h2 style="font-family: var(--font-display); margin-bottom: 15px;">📊 Pending Verifications</h2>
     <div class="section-box" style="overflow-x: auto;">
       <table>
-        <thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Status</th></tr></thead>
-        <tbody id="adminTable"></tbody>
+        <thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Action</th></tr></thead>
+        <tbody id="adminTableBody"></tbody>
       </table>
     </div>
   </section>
@@ -128,7 +131,7 @@
   const API_URL = "https://agrichain-backend-y068.onrender.com/api";
   const SECRET = "Adil_Agri_Secure_786";
   let isAuth = false;
-  let allData = [];
+  let serverData = [];
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
   function navAction(p) { toggleMenu(); showPage(p); }
@@ -136,78 +139,76 @@
   function showPage(p) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-'+p).classList.add('active');
-    if(p === 'dashboard' && isAuth) renderAdmin();
-    if(p === 'shop') fetchData();
+    if(p === 'market') fetchServerData();
+    if(p === 'dashboard' && isAuth) fetchAdminData();
     window.scrollTo(0,0);
   }
 
-  // Triple Tap Logic
-  let count = 0;
+  // Triple Tap Hidden Trigger
+  let taps = 0;
   document.getElementById('logoBtn').addEventListener('click', () => {
-    count++;
-    if(count === 3) { count = 0; showPage('admin-login'); }
-    setTimeout(() => count = 0, 1000);
+    taps++;
+    if(taps === 3) { taps = 0; showPage('admin-auth'); }
+    setTimeout(() => taps = 0, 1000);
   });
 
-  function checkAuth() {
+  function loginAdmin() {
     if(document.getElementById('adminPass').value === SECRET) { isAuth = true; showPage('dashboard'); }
     else { alert("Wrong!"); }
   }
 
-  async function fetchData() {
+  async function fetchServerData() {
     const res = await fetch(`${API_URL}/inventory`);
-    allData = await res.json();
+    serverData = await res.json();
   }
 
-  // 🛒 CUSTOMER LOGIC: Filter verified farmers by crop
-  function filterFarmers(cropType) {
-    document.getElementById('farmerDisplay').style.display = 'block';
-    document.getElementById('selectedCropName').innerText = `Verified ${cropType} Farmers`;
+  // 🛒 CUSTOMER MARKET LOGIC
+  function loadFarmers(crop) {
+    document.getElementById('farmerBox').style.display = 'block';
+    document.getElementById('cropTitle').innerText = `Verified ${crop} Farmers`;
     
-    // Sirf wahi data dikhao jo Verified (Accepted) ho aur sahi crop ho
-    const filtered = allData.filter(item => 
-      item.crop.toLowerCase() === cropType.toLowerCase() && 
-      !item.grade.includes('Pending')
+    // Filter only Verified ones
+    const filtered = serverData.filter(d => 
+      d.crop.toLowerCase() === crop.toLowerCase() && 
+      !d.grade.includes('Pending')
     );
 
-    const tbody = document.getElementById('customerFarmerTable');
+    const tbody = document.getElementById('farmerTableBody');
     if(filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No verified batches available for ${cropType} yet.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:20px;">Abhi is crop ke liye koi verified farmer nahi hai.</td></tr>`;
     } else {
       tbody.innerHTML = filtered.map(t => `
         <tr>
           <td><strong>${t.farmerName}</strong></td>
           <td>${t.quantity} KG</td>
-          <td><span class="verify-badge">VERIFIED ✅</span></td>
+          <td><span class="badge">VERIFIED ✅</span></td>
         </tr>
       `).join('');
     }
-    // Smooth scroll to list
-    document.getElementById('farmerDisplay').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('farmerBox').scrollIntoView({ behavior: 'smooth' });
   }
 
   // Admin Render
-  async function renderAdmin() {
+  async function fetchAdminData() {
     const res = await fetch(`${API_URL}/inventory`);
     const data = await res.json();
-    document.getElementById('adminTable').innerHTML = data.map(t => `
+    document.getElementById('adminTableBody').innerHTML = data.map(t => `
       <tr>
         <td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td>
-        <td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; border:none; color:#fff; padding:5px 8px; border-radius:5px;">Accept</button>` : 'Verified'}</td>
+        <td>${t.grade.includes('Pending') ? `<button onclick="approveBatch('${t._id}')" style="background:#2ecc71; border:none; color:#fff; padding:5px 10px; border-radius:5px;">Accept</button>` : '✅'}</td>
       </tr>
     `).join('');
   }
 
-  async function approve(id) {
+  async function approveBatch(id) {
     await fetch(`${API_URL}/inventory/verify/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'x-api-key': SECRET }
     });
-    renderAdmin();
+    fetchAdminData();
   }
 
-  // Farmer Post
-  document.getElementById('farmerForm').addEventListener('submit', async (e) => {
+  document.getElementById('sellForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
       farmerName: document.getElementById('f_name').value,
@@ -219,11 +220,11 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    alert("Listing Request Sent!");
+    alert("Request Registered!");
     showPage('home');
   });
 
-  window.onload = fetchData;
+  window.onload = fetchServerData;
 </script>
 </body>
 </html>
