@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriChain Pro — Mobile Secure</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AgriChain Pro — Digital Transparency</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e0e0e0; overflow-x: hidden; }
 
-  /* NAV */
+  /* NAVIGATION */
   nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000; }
-  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; cursor: pointer; user-select: none; }
+  
+  /* 🕵️‍♂️ Logo Bypass Styling */
+  .nav-logo { 
+    font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; 
+    cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none;
+  }
   .nav-logo span { color: var(--primary); }
+  
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
@@ -25,61 +31,73 @@
   /* LAYOUT */
   #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
   .page { display: none; opacity: 0; }
-  .page.active { display: block; opacity: 1; }
+  .page.active { display: block; opacity: 1; transition: opacity 0.3s; }
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-top: 25px; }
+  
+  .hero { text-align: center; padding: 40px 0; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
   .btn-primary { background: var(--primary); color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
+  
   input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; font-size: 16px; }
+  
+  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
+  .step-num { background: var(--primary); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
 
   table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  th, td { padding: 10px 5px; border-bottom: 1px solid var(--border); text-align: left; }
-  .status-tag { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+  th, td { padding: 12px 5px; border-bottom: 1px solid var(--border); text-align: left; }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo" id="logoLink">Agri<span>Chain</span></div>
+  <div class="nav-logo" id="secretLogo">Agri<span>Chain</span></div>
   <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <div class="nav-popup" id="navPopup">
   <button class="close-btn" onclick="toggleMenu()">✕</button>
   <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
-  <a href="#" class="pop-link" onclick="navAction('sell')">📢 Sell Crop</a>
+  <a href="#" class="pop-link" onclick="navAction('sell')">📢 Sell Your Crop</a>
 </div>
 
 <div id="app">
   <section id="page-home" class="page active">
-    <div style="text-align:center; padding:40px 0;">
-      <h1 style="font-family:var(--font-display); font-size:2.5rem;">Secure Supply<br><span style="color:var(--primary)">Chain</span></h1>
-      <p style="color:#888; margin-top:15px;">Mandi prices se behtar. Direct Farmer-to-Warehouse.</p>
-      <button class="btn-primary" onclick="navAction('sell')">Start Selling →</button>
+    <div class="hero">
+      <h1>Direct From<br><span style="color:var(--primary)">Farm To Warehouse</span></h1>
+      <p style="color:#888; margin: 20px auto;">Mandi prices se 5% sasta, Verified batches.</p>
+      <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('sell')">Explore Market →</button>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">⚙️ How it Works</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer Registration</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Quality Verification</strong></div></div>
     </div>
   </section>
 
   <section id="page-sell" class="page">
     <div class="section-box">
-      <h2 style="font-family:var(--font-display); color:var(--primary); margin-bottom:15px;">📢 Listing Form</h2>
-      <form id="farmerForm">
-        <input type="text" id="s_name" placeholder="Apka Naam" required>
-        <input type="text" id="s_crop" placeholder="Fasal" required>
+      <h2 style="font-family: var(--font-display); color:var(--primary); margin-bottom: 15px;">📢 Register Your Crop</h2>
+      <form id="farmerSellForm">
+        <input type="text" id="s_name" placeholder="Farmer Name" required>
+        <input type="text" id="s_crop" placeholder="Crop (Wheat, Rice, etc.)" required>
         <input type="number" id="s_qty" placeholder="Quantity (KG)" required>
-        <button type="submit" class="btn-primary">Register Batch</button>
+        <button type="submit" class="btn-primary">Submit for Review</button>
       </form>
     </div>
   </section>
 
   <section id="page-admin-auth" class="page">
-    <div class="section-box" style="max-width: 400px; margin: auto;">
-      <h2 style="font-family:var(--font-display); margin-bottom:15px;">🔐 Identity Check</h2>
+    <div class="section-box" style="max-width: 400px; margin: 30px auto;">
+      <h2 style="font-family: var(--font-display); margin-bottom: 15px;">🔐 Secret Entry</h2>
       <input type="password" id="adminPass" placeholder="Enter Secret Code">
-      <button class="btn-primary" onclick="verifyAdmin()">Unlock</button>
+      <button class="btn-primary" onclick="verifyAdmin()">Unlock Dashboard</button>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family:var(--font-display); margin-bottom:15px;">📊 Pending Requests</h2>
-    <div class="section-box" style="overflow-x:auto; padding: 15px;">
+    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Admin Control</h2>
+    <div class="section-box" style="overflow-x: auto;">
       <table>
         <thead><tr><th>Farmer</th><th>Crop</th><th>Qty</th><th>Action</th></tr></thead>
         <tbody id="txnTableBody"></tbody>
@@ -91,7 +109,7 @@
 <script>
   const API_URL = "https://agrichain-backend-y068.onrender.com/api";
   const SECRET = "Adil_Agri_Secure_786";
-  let isVerified = false;
+  let authorized = false;
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
   function navAction(p) { toggleMenu(); showPage(p); }
@@ -99,45 +117,50 @@
   function showPage(p) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-'+p).classList.add('active');
-    if(p === 'dashboard' && isVerified) renderDashboard();
+    if(p === 'dashboard' && authorized) renderAdmin();
+    window.scrollTo(0,0);
   }
 
-  // 🕵️‍♂️ MOBILE SECRET TRAP: Long Press Logo (3 seconds)
-  let pressTimer;
-  const logo = document.getElementById('logoLink');
+  // 🕵️‍♂️ MOBILE LONG PRESS BYPASS LOGIC
+  const logo = document.getElementById('secretLogo');
+  let timer;
+
+  // Block Browser Context Menu
+  logo.addEventListener('contextmenu', (e) => e.preventDefault());
 
   logo.addEventListener('touchstart', (e) => {
-    pressTimer = window.setTimeout(() => {
+    timer = setTimeout(() => {
       showPage('admin-auth');
-    }, 3000); // 3 seconds tak pakad ke rakho
+    }, 3000); // 3 Sec Hold
   });
 
-  logo.addEventListener('touchend', () => { clearTimeout(pressTimer); });
+  logo.addEventListener('touchend', () => clearTimeout(timer));
+  logo.addEventListener('touchmove', () => clearTimeout(timer));
 
   function verifyAdmin() {
     if(document.getElementById('adminPass').value === SECRET) {
-      isVerified = true;
+      authorized = true;
       showPage('dashboard');
-    } else { alert("Access Denied!"); }
+    } else { alert("Nahi bhai!"); }
   }
 
-  document.getElementById('farmerForm').addEventListener('submit', async (e) => {
+  // Farmer Listing
+  document.getElementById('farmerSellForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
       farmerName: document.getElementById('s_name').value,
       crop: document.getElementById('s_crop').value,
       quantity: parseInt(document.getElementById('s_qty').value)
     };
-    await fetch(`${API_URL}/public/list-crop`, {
+    const res = await fetch(`${API_URL}/public/list-crop`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    alert("Listing Request Sent!");
-    showPage('home');
+    if(res.ok) { alert("Sent!"); showPage('home'); }
   });
 
-  async function renderDashboard() {
+  async function renderAdmin() {
     const res = await fetch(`${API_URL}/inventory`);
     const data = await res.json();
     document.getElementById('txnTableBody').innerHTML = data.map(t => {
@@ -147,19 +170,19 @@
           <td>${t.farmerName}</td>
           <td>${t.crop}</td>
           <td>${t.quantity}</td>
-          <td>${pending ? `<button onclick="accept('${t._id}')" style="background:#2ecc71; border:none; color:#fff; padding:5px; border-radius:4px;">Approve</button>` : '✅'}</td>
+          <td>${pending ? `<button onclick="accept('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:5px; border-radius:5px;">Accept</button>` : '✅'}</td>
         </tr>
       `;
     }).join('');
   }
 
   async function accept(id) {
-    if(!isVerified) return;
+    if(!authorized) return;
     await fetch(`${API_URL}/inventory/verify/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'x-api-key': SECRET }
     });
-    renderDashboard();
+    renderAdmin();
   }
 </script>
 </body>
