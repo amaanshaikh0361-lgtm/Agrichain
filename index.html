@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AgriChain Pro — Digital Transparency</title>
+<title>AgriChain Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
@@ -55,9 +55,9 @@
 
 <div class="nav-popup" id="navPopup">
   <button class="close-btn" onclick="toggleMenu()">✕</button>
-  <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
-  <a href="#" class="pop-link" onclick="navAction('market')">🛒 Explore Market</a>
-  <a href="#" class="pop-link" onclick="navAction('sell')">📢 Sell Your Crop</a>
+  <a href="javascript:void(0)" class="pop-link" onclick="showPage('home')">🏠 Home</a>
+  <a href="javascript:void(0)" class="pop-link" onclick="showPage('market')">🛒 Explore Market</a>
+  <a href="javascript:void(0)" class="pop-link" onclick="showPage('sell')">📢 Sell Your Crop</a>
 </div>
 
 <div id="app">
@@ -130,24 +130,29 @@
   let isAuth = false;
   let cachedData = [];
 
-  // FIXED: Menu logic
-  function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
-  
-  function navAction(p) { 
-    document.getElementById('navPopup').classList.remove('open'); // Sirf close karega
-    showPage(p); 
+  // Toggle Function (Sirf hamburger icon ke liye)
+  function toggleMenu() { 
+    document.getElementById('navPopup').classList.toggle('open'); 
   }
-
+  
+  // FIXED SHOWPAGE: Ye page change karega aur menu band karega agar khula ho toh
   function showPage(p) {
+    // Menu band karo (agar khula hai toh)
+    document.getElementById('navPopup').classList.remove('open');
+    
+    // Pages switch karo
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     const target = document.getElementById('page-'+p);
     if(target) target.classList.add('active');
+    
+    // Data sync karo
     if(p === 'market' || p === 'home') syncData();
     if(p === 'dashboard' && isAuth) renderAdmin();
+    
     window.scrollTo(0,0);
   }
 
-  // Triple Tap
+  // Triple Tap Hidden Login
   let taps = 0;
   document.getElementById('logoBtn').addEventListener('click', () => {
     taps++;
@@ -156,13 +161,19 @@
   });
 
   function loginAdmin() {
-    if(document.getElementById('adminPass').value === SECRET) { isAuth = true; showPage('dashboard'); }
-    else { alert("Wrong!"); }
+    if(document.getElementById('adminPass').value === SECRET) { 
+      isAuth = true; 
+      showPage('dashboard'); 
+    } else { 
+      alert("Wrong Password!"); 
+    }
   }
 
   async function syncData() {
-    const res = await fetch(`${API_URL}/inventory`);
-    cachedData = await res.json();
+    try {
+      const res = await fetch(`${API_URL}/inventory`);
+      cachedData = await res.json();
+    } catch(e) { console.log("DB sync error"); }
   }
 
   function showFarmers(crop) {
@@ -170,7 +181,7 @@
     const verified = cachedData.filter(d => d.crop.toLowerCase() === crop.toLowerCase() && !d.grade.includes('Pending'));
     document.getElementById('marketTableBody').innerHTML = verified.length > 0 
       ? verified.map(v => `<tr><td>${v.farmerName}</td><td>${v.quantity} KG</td><td style="color:var(--primary);">Verified ✅</td></tr>`).join('')
-      : `<tr><td colspan="3">No verified stock.</td></tr>`;
+      : `<tr><td colspan="3">No verified stock for ${crop}.</td></tr>`;
     document.getElementById('marketResults').scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -178,7 +189,7 @@
     const res = await fetch(`${API_URL}/inventory`);
     const data = await res.json();
     document.getElementById('adminTableBody').innerHTML = data.map(t => `
-      <tr><td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td><td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:5px; border-radius:5px;">Accept</button>` : '✅'}</td></tr>
+      <tr><td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td><td>${t.grade.includes('Pending') ? `<button onclick="approve('${t._id}')" style="background:#2ecc71; color:#fff; border:none; padding:5px; border-radius:5px; cursor:pointer;">Accept</button>` : '✅'}</td></tr>
     `).join('');
   }
 
@@ -191,7 +202,7 @@
     e.preventDefault();
     const data = { farmerName: document.getElementById('f_name').value, crop: document.getElementById('f_crop').value, quantity: parseInt(document.getElementById('f_qty').value) };
     await fetch(`${API_URL}/public/list-crop`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-    alert("Sent!"); showPage('home');
+    alert("Listing Registered!"); showPage('home');
   });
 
   window.onload = syncData;
