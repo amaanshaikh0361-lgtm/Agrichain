@@ -3,65 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriChain Pro — Digital Transparency</title>
+<title>AgriChain Pro — Farmer & Admin Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif;
-  }
+  :root { --primary: #639922; --bg: #0f110c; --surface: rgba(255, 255, 255, 0.04); --border: rgba(255, 255, 255, 0.1); --font-display: 'Syne', sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e0e0e0; overflow-x: hidden; }
 
-  /* 🟢 NAVIGATION */
-  nav {
-    position: fixed; top: 0; width: 100%; height: 70px;
-    background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border); display: flex;
-    align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000;
-  }
+  nav { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; z-index: 1000; }
   .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; }
   .nav-logo span { color: var(--primary); }
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
-  /* 🟢 POP-UP MENU */
-  .nav-popup {
-    position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-    background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px);
-    border-left: 1px solid var(--border); display: flex;
-    flex-direction: column; padding: 25px; gap: 1.5rem;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2000;
-  }
+  .nav-popup { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding: 25px; gap: 1.5rem; transition: 0.4s; z-index: 2000; }
   .nav-popup.open { right: 0; }
-  .popup-header { display: flex; justify-content: flex-end; }
-  .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; }
-  .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; transition: 0.3s; }
-  .pop-link:hover { color: var(--primary); transform: translateX(10px); }
+  .close-btn { background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; align-self: flex-end; }
+  .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
 
-  /* 🟢 LAYOUT */
   #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
   .page { display: none; opacity: 0; }
   .page.active { display: block; opacity: 1; }
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
-  
-  /* 🟢 HERO & FEATURES */
-  .hero { text-align: center; padding: 40px 0; }
-  .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
-  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-  .card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 18px; border: 1px solid var(--border); }
-  
-  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
-  .step-num { background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
-
-  /* 🟢 FORM & TABLES */
-  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 10px; outline: none; }
-  .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
-  
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-  th { text-align: left; color: #666; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
-  td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 0.85rem; }
+  .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
+  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
 </style>
 </head>
 <body>
@@ -72,134 +39,87 @@
 </nav>
 
 <div class="nav-popup" id="navPopup">
-  <div class="popup-header"><button class="close-btn" onclick="toggleMenu()">✕</button></div>
+  <button class="close-btn" onclick="toggleMenu()">✕</button>
   <a href="#" class="pop-link" onclick="navAction('home')">🏠 Home</a>
-  <a href="#" class="pop-link" onclick="navAction('shop')">🛒 Buy Crops</a>
-  <a href="#" class="pop-link" onclick="navAction('dashboard')">📊 Dashboard</a>
+  <a href="#" class="pop-link" onclick="navAction('sell')">📢 Sell Your Crop</a>
+  <a href="#" class="pop-link" onclick="navAction('dashboard')">📊 Admin Dash</a>
 </div>
 
 <div id="app">
   <section id="page-home" class="page active">
-    <div class="hero">
-      <h1>Direct From<br><span style="color:var(--primary)">Farm To Warehouse</span></h1>
-      <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches. Trusted by 1,200+ farmers.</p>
-      <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('shop')">Explore Market →</button>
-    </div>
-
-    <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">🤝 Why AgriChain is Your Best Deal</h2>
-      <p style="color:#888; font-size: 0.9rem;">AgriChain bundles transport, storage, and quality checks into one transparent price.</p>
-      <div class="info-grid">
-        <div class="card"><strong>💸 5% Below Mandi</strong><p style="font-size: 0.8rem; color:#666;">Always cheaper than market rates.</p></div>
-        <div class="card"><strong>🚚 Transport Included</strong><p style="font-size: 0.8rem; color:#666;">No separate delivery charges.</p></div>
-        <div class="card"><strong>✅ Graded & Quality</strong><p style="font-size: 0.8rem; color:#666;">Every batch is weighed and graded.</p></div>
-        <div class="card"><strong>🔒 Safe Payments</strong><p style="font-size: 0.8rem; color:#666;">Direct to bank with GST invoice.</p></div>
-      </div>
-    </div>
-
-    <div class="section-box">
-      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ System Workflow</h2>
-      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p style="font-size:0.8rem; color:#888;">Staff logs quantity and grade.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p style="font-size:0.8rem; color:#888;">Instant SMS with batch ID to farmer.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><strong>Market Sync</strong><p style="font-size:0.8rem; color:#888;">Price set 5% lower than live mandi.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><strong>Settlement</strong><p style="font-size:0.8rem; color:#888;">Payment in 3 days directly to bank.</p></div></div>
+    <div style="text-align:center; padding:40px 0;">
+      <h1 style="font-family:var(--font-display); font-size:3rem;">Farm To <span style="color:var(--primary)">Warehouse</span></h1>
+      <p style="color:#888; margin:20px 0;">Mandi prices se 5% sasta. Trusted by 1,200+ farmers.</p>
+      <button class="btn-primary" style="width:auto; padding:15px 40px;" onclick="navAction('sell')">Sell Your Crop Now →</button>
     </div>
   </section>
 
-  <section id="page-shop" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Live Market</h2>
-    <div class="info-grid" id="shopGrid">
-        <div class="metric-card"><h3>Wheat</h3><h2 style="color:var(--primary)">₹2,204/Qt</h2><button class="btn-primary">Add to Cart</button></div>
-        <div class="metric-card"><h3>Onion</h3><h2 style="color:var(--primary)">₹1,757/Qt</h2><button class="btn-primary">Add to Cart</button></div>
-        <div class="metric-card"><h3>Rice</h3><h2 style="color:var(--primary)">₹2,945/Qt</h2><button class="btn-primary">Add to Cart</button></div>
+  <section id="page-sell" class="page">
+    <div class="section-box">
+      <h2 style="font-family:var(--font-display); color:var(--primary); margin-bottom:15px;">📢 Register Your Crop</h2>
+      <form id="farmerSellForm">
+        <input type="text" id="s_name" placeholder="Farmer Name" required>
+        <input type="text" id="s_crop" placeholder="Crop (Wheat, Rice, etc.)" required>
+        <input type="number" id="s_qty" placeholder="Quantity (KG)" required>
+        <button type="submit" class="btn-primary">Submit Listing Request</button>
+      </form>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
-    <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Dashboard</h2>
-    <div class="info-grid" style="margin-bottom: 2rem;">
-        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">Loading...</h2></div>
-        <div class="metric-card"><p>Active Farmers</p><h2 id="m2" style="color:var(--primary)">0</h2></div>
-        <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹0</h2></div>
-    </div>
-
-    <div class="section-box">
-      <h3 style="font-family: var(--font-display); margin-bottom: 1rem;">🚜 Add New Farmer Batch</h3>
-      <form id="addBatchForm">
-        <input type="text" id="f_batchId" placeholder="Batch ID (e.g. B001)" required>
-        <input type="text" id="f_farmerName" placeholder="Farmer Name" required>
-        <input type="text" id="f_crop" placeholder="Crop Name" required>
-        <input type="number" id="f_quantity" placeholder="Quantity (KG)" required>
-        <button type="submit" class="btn-primary">Save to Database</button>
-      </form>
-    </div>
-
-    <div class="section-box">
-        <h3 style="font-family: var(--font-display); margin-bottom: 1rem;">Recent Transactions</h3>
-        <div style="overflow-x: auto;">
-            <table>
-                <thead><tr><th>ID</th><th>Farmer</th><th>Crop</th><th>Qty</th><th>Status</th></tr></thead>
-                <tbody id="txnTableBody"></tbody>
-            </table>
-        </div>
+    <h2 style="font-family:var(--font-display); margin-bottom:20px;">📊 Admin Overview</h2>
+    <div class="section-box" style="overflow-x:auto;">
+        <table>
+            <thead><tr><th>ID</th><th>Farmer</th><th>Crop</th><th>Qty</th><th>Status</th></tr></thead>
+            <tbody id="txnTableBody"></tbody>
+        </table>
     </div>
   </section>
 </div>
 
 <script>
-  const API_URL = "https://agrichain-backend-y068.onrender.com/api/inventory";
+  const API_URL = "https://agrichain-backend-y068.onrender.com/api";
+  const ADMIN_KEY = "Adil_Agri_Secure_786";
 
   function toggleMenu() { document.getElementById('navPopup').classList.toggle('open'); }
-  function navAction(page) { toggleMenu(); showPage(page); }
-
+  function navAction(p) { toggleMenu(); showPage(p); }
   function showPage(p) {
     document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
     document.getElementById('page-'+p).classList.add('active');
-    if(p === 'dashboard') renderRealDashboard();
-    window.scrollTo(0,0);
+    if(p === 'dashboard') renderDashboard();
   }
 
-  async function renderRealDashboard() {
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-      if (data && data.length > 0) {
-        const totalQty = data.reduce((sum, item) => sum + item.quantity, 0);
-        const farmers = [...new Set(data.map(item => item.farmerName))].length;
-        
-        document.getElementById('m1').innerText = totalQty + ' KG';
-        document.getElementById('m2').innerText = farmers;
-        document.getElementById('m3').innerText = '₹' + (totalQty * 24).toLocaleString('en-IN');
-
-        document.getElementById('txnTableBody').innerHTML = data.map(t => `
-          <tr><td><code>${t.batchId}</code></td><td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td><td style="color:var(--primary); font-weight:bold;">VERIFIED</td></tr>
-        `).join('');
-      }
-    } catch (e) { console.log("Fetch error", e); }
-  }
-
-  // Submit Form Logic
-  document.getElementById('addBatchForm').addEventListener('submit', async (e) => {
+  // Farmer Listing (Public Route)
+  document.getElementById('farmerSellForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const formData = {
-      batchId: document.getElementById('f_batchId').value,
-      farmerName: document.getElementById('f_farmerName').value,
-      crop: document.getElementById('f_crop').value,
-      quantity: parseInt(document.getElementById('f_quantity').value)
+    const data = {
+      farmerName: document.getElementById('s_name').value,
+      crop: document.getElementById('s_crop').value,
+      quantity: parseInt(document.getElementById('s_qty').value)
     };
-    const res = await fetch(API_URL, {
+    const res = await fetch(`${API_URL}/public/list-crop`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(data)
     });
-    if(res.ok) {
-      alert("Bhai, data add ho gaya!");
-      document.getElementById('addBatchForm').reset();
-      renderRealDashboard();
-    }
+    if(res.ok) { alert("Sent to Admin!"); document.getElementById('farmerSellForm').reset(); showPage('home'); }
   });
 
-  window.onload = () => { renderRealDashboard(); };
+  async function renderDashboard() {
+    const res = await fetch(`${API_URL}/inventory`);
+    const data = await res.json();
+    document.getElementById('txnTableBody').innerHTML = data.map(t => `
+      <tr>
+        <td><code>${t.batchId}</code></td>
+        <td>${t.farmerName}</td>
+        <td>${t.crop}</td>
+        <td>${t.quantity} KG</td>
+        <td style="color:${t.grade.includes('Pending') ? '#ffa500' : 'var(--primary)'}">${t.grade}</td>
+      </tr>
+    `).join('');
+  }
+
+  window.onload = renderDashboard;
 </script>
 </body>
 </html>
