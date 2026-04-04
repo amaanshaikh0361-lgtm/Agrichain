@@ -13,7 +13,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #e0e0e0; overflow-x: hidden; }
 
-  /* NAVIGATION */
+  /* 🟢 NAVIGATION */
   nav {
     position: fixed; top: 0; width: 100%; height: 70px;
     background: rgba(15, 17, 12, 0.95); backdrop-filter: blur(15px);
@@ -25,7 +25,7 @@
   .menu-toggle { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 28px; height: 3px; background: #fff; border-radius: 2px; }
 
-  /* POP-UP MENU */
+  /* 🟢 POP-UP MENU */
   .nav-popup {
     position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     background: rgba(20, 22, 16, 0.98); backdrop-filter: blur(25px);
@@ -39,25 +39,26 @@
   .pop-link { text-decoration: none; color: #aaa; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; transition: 0.3s; }
   .pop-link:hover { color: var(--primary); transform: translateX(10px); }
 
-  /* LAYOUT */
+  /* 🟢 LAYOUT */
   #app { padding-top: 90px; width: 90%; max-width: 1200px; margin: 0 auto; padding-bottom: 50px; }
   .page { display: none; opacity: 0; }
   .page.active { display: block; opacity: 1; }
   .section-box { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 30px; margin-top: 30px; }
   
+  /* 🟢 HERO & FEATURES */
   .hero { text-align: center; padding: 40px 0; }
   .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 3.5rem); line-height: 1.1; margin-bottom: 15px; }
   .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
   .card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 18px; border: 1px solid var(--border); }
   
+  .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; background: rgba(255,255,255,0.01); padding: 15px; border-radius: 15px; border-left: 3px solid var(--primary); }
+  .step-num { background: var(--primary); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+
+  /* 🟢 FORM & TABLES */
+  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 10px; outline: none; }
   .metric-card { background: var(--surface); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
   .btn-primary { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99,153,34,0.2); }
   
-  /* FORM STYLING */
-  input { width: 100%; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; color: #fff; margin-bottom: 10px; outline: none; }
-  input:focus { border-color: var(--primary); }
-
   table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
   th { text-align: left; color: #666; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
   td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 0.85rem; }
@@ -81,23 +82,43 @@
   <section id="page-home" class="page active">
     <div class="hero">
       <h1>Direct From<br><span style="color:var(--primary)">Farm To Warehouse</span></h1>
-      <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches.</p>
+      <p style="color:#888; margin: 20px auto; max-width: 500px;">Mandi prices se 5% sasta, 100% verified batches. Trusted by 1,200+ farmers.</p>
       <button class="btn-primary" style="width:auto; padding: 15px 40px;" onclick="navAction('shop')">Explore Market →</button>
     </div>
-    </section>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1rem;">🤝 Why AgriChain is Your Best Deal</h2>
+      <p style="color:#888; font-size: 0.9rem;">AgriChain bundles transport, storage, and quality checks into one transparent price.</p>
+      <div class="info-grid">
+        <div class="card"><strong>💸 5% Below Mandi</strong><p style="font-size: 0.8rem; color:#666;">Always cheaper than market rates.</p></div>
+        <div class="card"><strong>🚚 Transport Included</strong><p style="font-size: 0.8rem; color:#666;">No separate delivery charges.</p></div>
+        <div class="card"><strong>✅ Graded & Quality</strong><p style="font-size: 0.8rem; color:#666;">Every batch is weighed and graded.</p></div>
+        <div class="card"><strong>🔒 Safe Payments</strong><p style="font-size: 0.8rem; color:#666;">Direct to bank with GST invoice.</p></div>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2 style="font-family: var(--font-display); margin-bottom: 1.5rem;">⚙️ System Workflow</h2>
+      <div class="step"><div class="step-num">1</div><div><strong>Farmer brings crop</strong><p style="font-size:0.8rem; color:#888;">Staff logs quantity and grade.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Digital Records</strong><p style="font-size:0.8rem; color:#888;">Instant SMS with batch ID to farmer.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Market Sync</strong><p style="font-size:0.8rem; color:#888;">Price set 5% lower than live mandi.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Settlement</strong><p style="font-size:0.8rem; color:#888;">Payment in 3 days directly to bank.</p></div></div>
+    </div>
+  </section>
 
   <section id="page-shop" class="page">
     <h2 style="font-family: var(--font-display); margin-bottom: 20px;">🛒 Live Market</h2>
     <div class="info-grid" id="shopGrid">
-        <div class="metric-card"><h3>Wheat</h3><h2 style="color:var(--primary)">₹2,204/Qt</h2><button class="btn-primary">Buy Now</button></div>
-        <div class="metric-card"><h3>Rice</h3><h2 style="color:var(--primary)">₹2,945/Qt</h2><button class="btn-primary">Buy Now</button></div>
+        <div class="metric-card"><h3>Wheat</h3><h2 style="color:var(--primary)">₹2,204/Qt</h2><button class="btn-primary">Add to Cart</button></div>
+        <div class="metric-card"><h3>Onion</h3><h2 style="color:var(--primary)">₹1,757/Qt</h2><button class="btn-primary">Add to Cart</button></div>
+        <div class="metric-card"><h3>Rice</h3><h2 style="color:var(--primary)">₹2,945/Qt</h2><button class="btn-primary">Add to Cart</button></div>
     </div>
   </section>
 
   <section id="page-dashboard" class="page">
     <h2 style="font-family: var(--font-display); margin-bottom: 20px;">📊 Dashboard</h2>
     <div class="info-grid" style="margin-bottom: 2rem;">
-        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">0 KG</h2></div>
+        <div class="metric-card"><p>Total Inventory</p><h2 id="m1" style="color:var(--primary)">Loading...</h2></div>
         <div class="metric-card"><p>Active Farmers</p><h2 id="m2" style="color:var(--primary)">0</h2></div>
         <div class="metric-card"><p>Trade Value</p><h2 id="m3" style="color:var(--primary)">₹0</h2></div>
     </div>
@@ -108,7 +129,7 @@
         <input type="text" id="f_batchId" placeholder="Batch ID (e.g. B001)" required>
         <input type="text" id="f_farmerName" placeholder="Farmer Name" required>
         <input type="text" id="f_crop" placeholder="Crop Name" required>
-        <input type="number" id="f_quantity" placeholder="Quantity in KG" required>
+        <input type="number" id="f_quantity" placeholder="Quantity (KG)" required>
         <button type="submit" class="btn-primary">Save to Database</button>
       </form>
     </div>
@@ -138,7 +159,6 @@
     window.scrollTo(0,0);
   }
 
-  // GET DATA
   async function renderRealDashboard() {
     try {
       const response = await fetch(API_URL);
@@ -146,9 +166,11 @@
       if (data && data.length > 0) {
         const totalQty = data.reduce((sum, item) => sum + item.quantity, 0);
         const farmers = [...new Set(data.map(item => item.farmerName))].length;
+        
         document.getElementById('m1').innerText = totalQty + ' KG';
         document.getElementById('m2').innerText = farmers;
         document.getElementById('m3').innerText = '₹' + (totalQty * 24).toLocaleString('en-IN');
+
         document.getElementById('txnTableBody').innerHTML = data.map(t => `
           <tr><td><code>${t.batchId}</code></td><td>${t.farmerName}</td><td>${t.crop}</td><td>${t.quantity}</td><td style="color:var(--primary); font-weight:bold;">VERIFIED</td></tr>
         `).join('');
@@ -156,7 +178,7 @@
     } catch (e) { console.log("Fetch error", e); }
   }
 
-  // POST DATA
+  // Submit Form Logic
   document.getElementById('addBatchForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = {
@@ -165,15 +187,13 @@
       crop: document.getElementById('f_crop').value,
       quantity: parseInt(document.getElementById('f_quantity').value)
     };
-
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
-
     if(res.ok) {
-      alert("Bhai, naya data add ho gaya!");
+      alert("Bhai, data add ho gaya!");
       document.getElementById('addBatchForm').reset();
       renderRealDashboard();
     }
